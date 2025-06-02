@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nucșoara - Stâna lui Burnei: Camping Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2d5a27 0%, #4a7c59 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .tabs {
+            display: flex;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 5px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 15px 20px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+        
+        .tab:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .tab.active {
+            background: rgba(255, 255, 255, 0.9);
+            color: #2d5a27;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .content {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .species-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .species-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 5px solid #28a745;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .species-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        
+        .species-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        
+        .species-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2d5a27;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .species-latin {
+            font-style: italic;
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+        
+        .species-description {
+            color: #555;
+            margin-bottom: 10px;
+        }
+        
+        .uses {
+            background: #e8f5e8;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+        
+        .uses strong {
+            color: #2d5a27;
+        }
+        
+        .icon {
+            margin-right: 8px;
+            font-size: 1.2em;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .info-box {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏔️ Nucșoara - Stâna lui Burnei</h1>
+            <p class="subtitle">Dein Camping-Guide für die Făgăraș-Berge</p>
+        </div>
+        
+        <div class="tabs">
+            <div class="tab active" onclick="showTab('tiere')">🦌 Tiere</div>
+            <div class="tab" onclick="showTab('pflanzen')">🌿 Heilpflanzen</div>
+            <div class="tab" onclick="showTab('baeume')">🌲 Bäume</div>
+            <div class="tab" onclick="showTab('nice-to-know')">💡 Nice to Know</div>
+        </div>
+        
+        <div class="content">
+            <div id="tiere" class="tab-content active">
+                <h2>🦌 Tiere der Făgăraș-Berge</h2>
+                <div class="info-box">
+                    <strong>Hinweis:</strong> Die Făgăraș-Berge beherbergen eine der reichsten Faunen Europas mit intakten Ökosystemen.
+                </div>
+                
+                <div class="species-grid">
+                    <div class="species-card">
+                        <div class="species-name"><span class="icon">🐻</span>Braunbär</div>
+                        <div class="species-latin">Ursus arctos</div>
+                        <div class="species-description">Der Karpatenbraunbär ist das größte Raubtier der Region. Die Făgăraș-Berge haben eine der dichtesten Bärenpopulationen Europas.</div>
+                        <div class="uses"><strong>Verhalten:</strong> Meist nachtaktiv, omnivore Ernährung. Im Herbst auf Nahrungssuche für Winterschlaf. Abstand halten!</div>
+                    </div>
+                    
+                    <div class="species-card">
+                        <div class="species-name"><span class="icon">🐺</span>Wolf</div>
+                        <div class="species-latin">Canis lupus</div>
+                        <div class="species-description">Karpaten-Wölfe leben in Rudeln und sind ein wichtiger Teil des Ökosystems als Spitzenprädatoren.</div>
+                        <div class="uses"><strong>Verhalten:</strong> Scheue Tiere, meist nachtaktiv. Regulieren Hirsch- und Wildschweinpopulationen natürlich.</div>
+                    </div>
+                    
+                    <div class="species-card">
+                        <div class="species-name"><span class="icon">🐱</span>Eurasischer Luchs</div>
+                        <div class="species-latin">Lynx lynx</div>
+                        <div class="species-description">Der größte europäische Wildkatze, ausgezeichneter Kletterer und Jäger in den Bergwäldern.</div>
+                        <div class="uses"><strong>Besonderheiten:</strong> Nachtaktiv, excellent Hör- und Sehvermögen. Spuren erkennbar an großen Pfoten.</div>
+                    </div>
+                    
+                    <div class="species-card">
+                        <div class="species-name"><span class="icon">🦌</span>Rothirsch</div>
+                        <div class="species-latin">Cervus elaphus</div>
+                        <div class="species-description">Größtes Huftier der Region, besonders in den Morgenstunden und Abends auf Lichtungen zu sehen.</div>
+                        <div class="uses"><strong>Brunftzeit:</strong> September-Oktober, charakteristische Rufe der Hirsche. Respektvolle Distanz halten.</div>
+                    </div>
+                    
+                    <div class="species-card">
+                        <div class="species-name"><span class="icon">🐗</span>Wildschwein</div>
+                        <div class="species-latin">Sus scrofa</div>
+                        <div class="species-description">Intelligente und starke Allesfresser, die in Rotten leben und nachts aktiv sind.</div>
+                        <div class="uses"><strong>Vorsicht:</strong> Besonders Bachen mit Frischlingen können aggressiv werden. Essensreste sicher verstauen!</div>
+                    </div>
+                    
+                    <div class="species-card">
+                        <div class="species-name"><span class="icon">🦅</span>Steinadler</div>
+                        <div class="species-latin">Aquila chrysaetos</div>
+                        <div class="species-description">Majestätischer Greifvogel der Hochgebirgsregionen mit bis zu 2,3m Spannweite.</div>
+                        <div class="uses"><strong>Lebensraum:</strong> Felsige Gipfelregionen, kreist hoch über den Bergen auf Thermik.</div>
+                    </div>
+                </div>
+                
+                <div class="warning">
+                    <strong>⚠️ Sicherheitshinweis:</strong> Essen niemals offen lassen! Bären und andere Wildtiere werden durch Gerüche angelockt. Alle Lebensmittel in bärensicheren Behältern oder hoch aufhängen.
+                </div>
+            </div>
+            
+            <div id="pflanzen" class="tab-content">
+                <h2>🌿 Nützliche Heilpflanzen</h2>
+                <div class="info-box">
+                    <strong>Hinweis:</strong> Nur sammeln mit entsprechender Erfahrung! Viele Pflanzen haben giftige Doppelgänger.
+                </div>
+                
+                <div class="species-grid">
+                    <div class="species-card">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Arnica_montana_%28flowers%29.jpg/320px-Arnica_montana_%28flowers%29.jpg" alt="Arnika" class="species-image">
+                        <div class="species-name"><span class="icon">🌼</span>Echte Arnika</div>
+                        <div class="species-latin">Arnica montana</div>
+                        <div class="species-description">Gelbe Bergblume, wächst auf sauren Wiesen zwischen 500-2000m Höhe. Blütezeit: Juni-August.</div>
+                        <div class="uses"><strong>Verwendung:</strong> Äußerlich bei Prellungen, Verstauchungen, Blutergüssen. Nie auf offene Wunden! Tinktur oder Salbe.</div>
+                    </div>
+                    
+                    <div class="species-card">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Achillea_millefolium_2005.06.12_15.25.48.jpg/320px-Achillea_millefolium_2005.06.12_15.25.48.jpg" alt="Schafgarbe" class="species-image">
+                        <div class="species-name"><span class="icon">🌿</span>Schafgarbe</div>
+                        <div class="species-latin">Achillea millefolium</div>
+                        <div class="species-description">Weiße bis rosa Blütendolden, gefiederte Blätter. Wächst auf Wiesen und Wegen bis 2000m.</div>
+                        <div class="uses"><strong>Verwendung:</strong> Blutstillend, wundheilend. Tee bei Verdauungsproblemen. Frische Blätter auf kleine Schnitte.</div>
+                    </div>
+                    
+                    <div class="species-card">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Plantago_lanceolata_LC0133.jpg/320px-Plantago_lanceolata_LC0133.jpg" alt="Spitzwegerich" class="species-image">
+                        <div class="species-name"><span class="icon">🍃</span>Spitzwegerich</div>
+                        <div class="species-latin">Plantago lanceolata</div>
+                        <div class="species-description">Schmale, lanzettliche Blätter in Rosette. Wächst auf Wegen und Wiesen, sehr häufig.</div>
+                        <div class="uses"><strong>Verwendung:</strong> "Pflaster der Natur" - Blätter zerkauen und auf Insektenstiche, kleine Wunden. Antibakteriell.</div>
+                    </div>
+                    
+                    <div class="species-card">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Primula_veris_001.JPG/320px-Primula_veris_001.JPG" alt="Schlüsselblume" class="species-image">
+                        <div class="species-name"><span class="icon">🌸</span>Schlüsselblume</div>
+                        <div class="species-latin">Primula veris</div>
+                        <div class="species-description">Gelbe, duftende Blütendolden im Frühjahr. Runzelige Blätter, wächst auf Bergwiesen.</div>
+                        <div class="uses"><strong>Verwendung:</strong> Hustentee aus Blüten und Blättern. Schleimlösend bei Erkältungen. Geschützte Art - sparsam sammeln!</div>
+                    </div>
+                    
+                    <div class="species-card">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Tussilago_farfara_flowers.jpg/320px-Tussilago_farfara_flowers.jpg" alt="Huflattich" class="species-image">
+                        <div class="species-name"><span class="icon">🌿</span>Huflattich</div>
+                        <div class="species-latin">Tussilago farfara</div>
+                        <div class="species-description">Gelbe Blüten vor den Blättern im Frühjahr. Große, hufeisenförmige Blätter. Feuchte Standorte.</div>
+                        <div class="uses"><strong>Verwendung:</strong> Hustentee aus Blättern (getrocknet). Schleimlösend und beruhigend bei Bronchitis.</div>
+                    </div>
+                    
+                    <div class="species-card">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Urtica_dioica_2005-07-16_11-16-38.JPG/320px-Urtica_dioica_2005-07-16_11-16-38.JPG" alt="Brennnessel" class="species-image">
+                        <div class="species-name"><span class="icon">🌱</span>Brennnessel</div>
+                        <div class="species-latin">Urtica dioica</div>
+                        <div class="species-description">Bekannte "brennende" Pflanze mit gezähnten Blättern. Sehr nährstoffreich, überall verbreitet.</div>
+                        <div class="uses"><strong>Verwendung:</strong> Junge Blätter als Spinat gekocht. Tee entgiftend. Reich an Eisen, Vitamin C. Mit Handschuhen sammeln!</div>
+                    </div>
+                    
+                    <div class="species-card">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Hypericum_perforatum_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-102.jpg/320px-Hypericum_perforatum_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-102.jpg" alt="Johanniskraut" class="species-image">
+                        <div class="species-name"><span class="icon">🌿</span>Johanniskraut</div>
+                        <div class="species-latin">Hypericum perforatum</div>
+                        <div class="species-description">Gelbe 5-blättrige Blüten, durchscheinend gepunktete Blätter. Blüht zur Sommersonnenwende.</div>
+                        <div class="uses"><strong>Verwendung:</strong> Rotöl für Hautprobleme, Verbrennungen. Tee bei leichten Depressionen. 6 Wochen in Öl einlegen.</div>
+                    </div>
+                    
+                    <div class="species-card">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Hagebutten.jpg/320px-Hagebutten.jpg" alt="Hagebutte" class="species-image">
+                        <div class="species-name"><span class="icon">🍎</span>Hagebutte</div>
+                        <div class="species-latin">Rosa canina</div>
+                        <div class="species-description">Rote Früchte der Heckenrose, reich an Vitamin C. Dornenreiche Sträucher an Waldrändern.</div>
+                        <div class="uses"><strong>Verwendung:</strong> Tee aus getrockneten Früchten (ohne Kerne!). Marmelade, Mus. 20x mehr Vitamin C als Zitronen.</div>
+                    </div>
+                </div>
+                
+                <div class="warning">
+                    <strong>⚠️ Wichtig:</strong> Niemals Pflanzen sammeln oder verwenden ohne 100%ige Bestimmung! Viele Heilpflanzen haben giftige Doppelgänger. Bei Unsicherheit immer einen Experten fragen.
+                </div>
+            </div>
+            
+            <div id="baeume" class="tab-content">
+                <h2>🌲 Bäume der Region</h2>
+                <div class="info-box">
+                    <strong>Info:</strong> Die Făgăraș-Berge haben einige der letzten ursprünglichen Wälder Europas mit jahrhundertealten Baumriesen.
+                </div>
+                
+                <div class="species-grid">
+                    <div class="species-card">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/2013.05.08.-06-Mannheim_Vogelstang--M%C3%A4nnliche_Bl%C3%BCte_der_Gemeinen_Fichte_%28Picea_abies%29.jpg/320px-2013.05.08.-06-Mannheim_Vogelstang--M%C3%A4nnliche_Bl%C3%BCte_der_Gemeinen_Fichte_%28Picea_abies%29.jpg" alt="Gemeine Fichte" class="species-image">
+                        <div class="species-name"><span class="icon">🌲</span>Gemeine Fichte</div>
+                        <div class="species-latin">Picea abies</div>
+                        <div class="species-description">Dominiert die montane Stufe bis 1800m. Charakteristische hängende Zapfen, nadelförmige Blätter.</div>
+                        <div class="uses"><strong>Nutzen:</strong> Harztropfen als Kaugummi, Fichtennadelöl. Junge Triebe für Sirup (hustenlindernd). Brennholz.</div>
+                    </div>
+                    
+                    <div class="species-card">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Pinus_sylvestris_Rindenmuster.jpg/320px-Pinus_sylvestris_Rindenmuster.jpg" alt="Waldkiefer" class="species-image">
+                        <div class="species-name"><span class="icon">🌲</span>Waldkiefer</div>
+                        <div class="species-latin">Pinus sylvestris</div>
+                        <div class="species-description">Charakteristische orangerote Borke, paarweise Nadeln. Wächst auf ärmeren Böden bis 1600m.</div>
+                        <div class="uses"><strong>Nutzen:</strong> Kiefernnadeltee (Vitamin C), Harzverdickung als Kleber. Sehr gutes Brennholz, Bauholz.</div>
+                    </div>
+                    
+                    <div class="species-card">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Pinus_cembra_-_cones_and_needles.jpg/320px-Pinus_cembra_-_cones_and_needles.jpg" alt="Zirbelkiefer" class="species-image">
+                        <div class="species-name"><span class="icon">🌲</span>Zirbelkiefer</div>
+                        <div class="species-latin">Pinus cembra</div>
+                        <div class="species-description">In höchsten Lagen ab 1500m. Kurze, büschelige Nadeln zu fünft. Aufrechtstehende Zapfen.</div>
+                        <div class="uses"><strong>Nutzen:</strong> Zirbelnüsse essbar (protein- und fettreich). Zirbenöl beruhigend. Sehr dauerhaftes Holz.</div>
+                    </div>
+                    
+                    <div class="species-card">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Pinus_mugo_subsp._mugo_PID_1804-2.jpg/320px-Pinus_mugo_subsp._mugo_PID_1804-2.jpg" alt="Zwergkiefer" class="species-image">
+                        <div class="species-name"><span class="icon">🌿</span>Zwergkiefer</div>
+                        <div class="species-latin">Pinus mugo</div>
+                        <div class="species-description">Kriechend wachsender Strauch in der Krummholzzone über 1600m. Bildet dichte Matten.</div>
+                        <div class="uses"><strong>Nutzen:</strong> Latschenkieferöl aus Nadeln (ätherisches Öl). Schutz vor Lawinen und Erosion.</div>
+                    </div>
+                    
+                    <div class="species-card">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Fagus_sylvatica_JPG2a.jpg/320px-Fagus_sylvatica_JPG2a.jpg" alt="Rotbuche" class="species-image">
+                        <div class="species-name"><span class="icon">🍃</span>Rotbuche</div>
+                        <div class="species-latin">Fagus sylvatica</div>
+                        <div class="species-description">Dominiert untere Berglagen bis 1400m. Glatte graue Rinde, ovale gezähnte Blätter.</div>
+                        <div class="uses"><strong>Nutzen:</strong> Bucheckern essbar (geröstet), aber sparsam - leicht giftig roh. Exzellentes Brennholz. Laubmulch für Garten.</div>
+                    </div>
+                    
+                    <div class="species-card">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Acer_pseudoplatanus_JPG1a.jpg/320px-Acer_pseudoplatanus_JPG1a.jpg" alt="Bergahorn" class="species-image">
+                        <div class="species-name"><span class="icon">🍃</span>Bergahorn</div>
+                        <div class="species-latin">Acer pseudoplatanus</div>
+                        <div class="species-description">Große handförmige Blätter, charakteristische "Nasenzwicker"-Früchte. Bis 1600m Höhe.</div>
+                        <div class="uses"><strong>Nutzen:</strong> Ahornsirup aus Baumsaft (Frühjahr). Junge Blätter als Salat. Hochwertiges Möbelholz.</div>
+                    </div>
+                    
+                    <div class="species-card">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Rowanberries_in_late_August_2004_in_Helsinki.jpg/320px-Rowanberries_in_late_August_2004_in_Helsinki.jpg" alt="Vogelbeere" class="species-image">
+                        <div class="species-name"><span class="icon">🌿</span>Vogelbeere</div>
+                        <div class="species-latin">Sorbus aucuparia</div>
+                        <div class="species-description">Kleine Bäume bis 2000m, gefiederte Blätter, orange-rote Beeren in Dolden.</div>
+                        <div class="uses"><strong>Nutzen:</strong> Beeren essbar gekocht (nicht roh!). Marmelade, Schnaps. Reich an Vitamin C. Lockt Vögel an.</div>
+                    </div>
+                    
+                    <div class="species-card">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Abies_alba_%28EU%29.jpg/320px-Abies_alba_%28EU%29.jpg" alt="Weißtanne" class="species-image">
+                        <div class="species-name"><span class="icon">🌳</span>Weißtanne</div>
+                        <div class="species-latin">Abies alba</div>
+                        <div class="species-description">Flache Nadeln mit weißen Streifen unten, aufrecht stehende Zapfen. Bis 1800m Höhe.</div>
+                        <div class="uses"><strong>Nutzen:</strong> Tannenspitzen-Honig, Nadelöl. Tannenharz als natürlicher Klebstoff. Hochwertige Musikinstrumente.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="nice-to-know" class="tab-content">
+                <h2>💡 Nice to Know - Praktische Camping-Tipps</h2>
+                
+                <div class="species-grid">
+                    <div class="species-card">
+                        <div class="species-name"><span class="icon">🗺️</span>Route & Zugang</div>
+                        <div class="species-description">Von Nucșoara führt ein 35km langer Forstweg zur Stâna lui Burnei. Nur mit Geländewagen/4WD machbar. Alternativ lokale Transporte für ~100 Lei/Person.</div>
+                        <div class="uses"><strong>Tipp:</strong> Früh starten, da begrenzte Parkplätze (ca. 6 Autos). Gura Bândei 1km unterhalb als Alternative.</div>
+                    </div>
+                    
+                    <div class="species-card">
+                        <div class="species-name"><span class="icon">🏕️</span>Camping-Regelungen</div>
+                        <div class="species-description">Wildes Campen ist in Rumänien grundsätzlich erlaubt, aber in Naturschutzgebieten eingeschränkt.</div>
+                        <div class="uses"><strong>Regel:</strong> Leave No Trace! Mindestens 100m von Gewässern entfernt. Kein offenes Feuer in trockenen Perioden.</div>
+                    </div>
+                    
+                    <div class="species-card">
+                        <div class="species-name"><span class="icon">🌡️</span>Klima & Wetter</div>
+                        <div class="species-description">Bergklima mit schnellen Wetterumschwüngen. Sommer tagsüber warm (20°C), nachts kühl (5-10°C). Winter sehr kalt mit viel Schnee.</div>
+                        <div class="uses"><strong>Ausrüstung:</strong> Warmer Schlafsack auch im Sommer! Regenschutz und Windschutz essentiell.</div>
+                    </div>
+                    
+                    <div class="species-card">
+                        <div class="species-name"><span class="icon">💧</span>Wasserquellen</div>
+                        <div class="species-description">Mehrere Bergbäche und Quellen in der Region. Valea Rea und andere Zuflüsse meist sauber.</div>
+                        <div class="uses"><strong>Sicherheit:</strong> Trotzdem Wasser abkochen oder filtern - besonders nach Regenfällen. Wasseraufbereitungstabletten mitführen.</div>
+                    </div>
+                    
+                    <div class="species-card">
+                        <div class="species-name"><span class="icon">📱</span>Kommunikation</div>
+                        <div class="species-description">Handyempfang nur sporadisch in höheren Lagen. In Tälern oft gar kein Signal.</div>
+                        <div class="uses"><strong>Notfall:</strong> Notfallplan mit Angehörigen absprechen. GPS-Gerät oder Satellitennotfallsender für längere Touren.</div>
+                    </div>
+                    
+                    <div class="species-card">
+                        <div class="species-name"><span class="icon">🥾</span>Beste Jahreszeiten</div>
+                        <div class="species-description">Mai-Oktober für Camping geeignet. Juli-September optimal. Winter nur für Experten mit Spezialausrüstung.</div>
+                        <div class="uses"><strong>Geheimtipp:</strong> September - weniger Touristen, schöne Herbstfarben, meist noch stabiles Wetter.</div>
+                    </div>
+                    
+                    <div class="species-card">
+                        <div class="species-name"><span class="icon">🦺</span>Sicherheitstipps</div>
+                        <div class="species-description">Bergrettung unter 112 erreichbar. Immer jemandem Bescheid geben über Route und Rückkehrzeit.</div>
+                        <div class="uses"><strong>Ausrüstung:</strong> Erste-Hilfe-Set, Stirnlampe, Signalpfeife, warme Kleidung auch im Sommer. Höhenlage beachten!</div>
+                    </div>
+                    
+                    <div class="species-card">
+                        <div class="species-name"><span class="icon">🍄</span>Pilze sammeln</div>
+                        <div class="species-description">Die Karpaten sind reich an Pilzen - Steinpilze, Pfifferlinge, Maronenröhrlinge. Saison: Juli-Oktober.</div>
+                        <div class="uses"><strong>Achtung:</strong> Nur sammeln mit fundiertem Wissen! Tödliche Knollenblätterpilze kommen vor. Bei Unsicherheit: Finger weg!</div>
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <strong>🌟 Besonderes Erlebnis:</strong> Die Făgăraș-Berge bieten einige der dunkelsten Himmel Europas - perfekt für Sternenbeobachtung! Milchstraße oft mit bloßem Auge sichtbar.
+                </div>
+                
+                <div class="warning">
+                    <strong>⚠️ Wichtiger Hinweis:</strong> Die Region ist Heimat für Großraubtiere. Niemals Essen offen lassen, Müll mitnehmen, respektvollen Abstand zu Wildtieren halten. Bei Bärensichtung ruhig bleiben, langsam zurückziehen, nie wegrennen!
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showTab(tabName) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

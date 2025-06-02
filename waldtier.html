@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wildtier Tier Liste</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: black;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 20px rgba(255,255,255,0.2); }
+            to { text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 30px rgba(255,255,255,0.4); }
+        }
+
+        /* Tab styling */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            flex-wrap: wrap; /* Allow tabs to wrap on smaller screens */
+        }
+
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 12px 25px;
+            margin: 0 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            flex-grow: 1; /* Allow buttons to grow and fill space */
+            text-align: center;
+        }
+
+        .tab-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            z-index: 0;
+        }
+
+        .tab-button:hover::before {
+            left: 0;
+        }
+
+        .tab-button.active {
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            color: #2c3e50; /* Darker color for active tab text */
+        }
+        .tab-button.active::before {
+            left: 0;
+            background: transparent; /* Remove pseudo-element hover effect for active tab */
+        }
+
+        .tab-button span {
+            position: relative;
+            z-index: 1;
+        }
+
+
+        .tab-content {
+            display: none;
+            padding: 20px 0;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .tier {
+            margin-bottom: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .tier:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .tier-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .s-tier { background: linear-gradient(45deg, #00ff87, #60efff); color: #000; }
+        .a-tier { background: linear-gradient(45deg, #ffd700, #ffed4e); color: #000; }
+        .b-tier { background: linear-gradient(45deg, #ff6b35, #f7931e); color: black; }
+        .c-tier { background: linear-gradient(45deg, #ff4757, #c44569); color: black; }
+        .d-tier { background: linear-gradient(45deg, #8b0000, #ff0000); color: black; }
+        .f-tier { background: linear-gradient(45deg, #2c003e, #ff006e); color: black; }
+        .bonus-tier { background: linear-gradient(45deg, #74b9ff, #0984e3); color: black; }
+        .mythic-tier { background: linear-gradient(45deg, #ff00ff, #8a2be2); color: black; } /* New tier color */
+
+
+        .animals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .animal-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border-left: 5px solid transparent;
+        }
+
+        .animal-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .s-tier .animal-card { border-left-color: #00ff87; }
+        .a-tier .animal-card { border-left-color: #ffd700; }
+        .b-tier .animal-card { border-left-color: #ff6b35; }
+        .c-tier .animal-card { border-left-color: #ff4757; }
+        .d-tier .animal-card { border-left-color: #8b0000; }
+        .f-tier .animal-card { border-left-color: #ff006e; }
+        .bonus-tier .animal-card { border-left-color: #74b9ff; }
+        .mythic-tier .animal-card { border-left-color: #ff00ff; } /* New tier border color */
+
+
+        .animal-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2d3436;
+        }
+
+        .animal-status, .animal-encounter, .animal-removal {
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .animal-status strong, .animal-encounter strong, .animal-removal strong {
+            color: #636e72;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tier-label {
+            font-size: 2rem;
+            margin-right: 15px;
+        }
+
+        h2 {
+            color: black;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            padding-top: 20px; /* Added padding for spacing */
+        }
+
+        @media (max-width: 768px) {
+            .animals-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .tier-header {
+                font-size: 1.2rem;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab-button {
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🦌 WILDTIER TIER LISTE - Reloaded Edition! 🐺</h1>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'Wald')"><span>🌲 Wald</span></button>
+            <button class="tab-button" onclick="openTab(event, 'Berg')"><span>⛰️ Berg</span></button>
+            <button class="tab-button" onclick="openTab(event, 'Steppe')"><span>🌾 Steppe</span></button>
+            <button class="tab-button" onclick="openTab(event, 'Urban')"><span>🏙️ Urban</span></button>
+        </div>
+
+        <div id="Wald" class="tab-content active">
+            <h2>🌲 Waldtiere - Die Bewohner des Grüns und der tiefen Schatten 🌲</h2>
+            <div class="tier s-tier">
+                <div class="tier-header">
+                    <span class="tier-label">S</span>
+                    <span>Harmlos & Chillig - Die Guten Vibes Verteilenden</span>
+                </div>
+                <div class="animals-grid">
+                    <div class="animal-card">
+                        <div class="animal-name">🐰 Hase (Lepus europaeus)</div>
+                        <div class="animal-status"><strong>Status:</strong> Flauschiger Speedrunner, macht Hopser und verschwindet im Nullkommanichts.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Wie ein Disney-Film, nur mit mehr Panik vom Hasen, wenn er dich sieht.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Einmal klatschen reicht. Aber warum sollte man? Ist süß und putzig.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🦔 Igel (Erinaceus europaeus)</div>
+                        <div class="animal-status"><strong>Status:</strong> Stacheliger Kumpel, rollt sich zusammen, wenn's brenzlig wird. Meister der Langsamkeit.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Wandelnder Stachelball, macht "schnauf schnauf" Geräusche im Gebüsch.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Einfach warten. Igel haben ihre eigene Geschwindigkeit, die kein Mensch beeinflussen kann.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🐿️ Eichhörnchen (Sciurus vulgaris)</div>
+                        <div class="animal-status"><strong>Status:</strong> Hyperaktiver Nuss-Ninja, springt von Baum zu Baum wie ein Parkour-Profi.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Chaos im Baum, sammelt Nüsse wie ein Prepper für den Weltuntergang.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Unmöglich. Die sind überall und das ist gut so. Versucht es gar nicht erst.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🐭 Feldmaus (Microtus arvalis)</div>
+                        <div class="animal-status"><strong>Status:</strong> Mini-Flitzer, huscht durch's Gras, schneller als dein Schatten.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Blink und du verpasst sie. Reine Glückssache.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Sind schon weg, bevor du "Maus" sagen kannst. Problem gelöst.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🐍 Blindschleiche (Anguis fragilis)</div>
+                        <div class="animal-status"><strong>Status:</strong> Beinlose Echse mit Identitätskrise (KEINE Schlange!), tut aber harmlos.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Liegt rum und tut harmlos. Ist auch harmlos. Ein wahrer Zen-Meister.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Vorsichtig wegsetzen. Schwanz bricht leicht ab! Vorsichtiger als bei rohen Eiern.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🦦 Maulwurf (Talpa europaea)</div>
+                        <div class="animal-status"><strong>Status:</strong> Unterirdischer Landschaftsgärtner und Tunnelbauer. Hat eine Vorliebe für den Garten.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Selten, buddelt lieber. Hinterlässt Hügel als Visitenkarte, die niemand bestellt hat.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Ist schon unterirdisch verschwunden. Sie sind die wahren Versteckkünstler.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🐸 Frosch/Kröte (Anura)</div>
+                        <div class="animal-status"><strong>Status:</strong> Hüpfender Teichbewohner, macht "quak" oder "ohohoho". Konzerte inklusive.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Sitzt am Wasser und philosophiert lautstark über das Leben.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Hüpft von selbst weg. Bloß nicht küssen! Es wird kein Prinz.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🦋 Schmetterling (Lepidoptera)</div>
+                        <div class="animal-status"><strong>Status:</strong> Fliegendes Kunstwerk, tanzt durch die Luft, meist betrunken von Nektar.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Magisch schön, sammelt Nektar wie ein Sommelier edle Weine.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Warum sollte man? Reine Schönheit und friedlich. Einfach genießen!</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🐛 Glühwürmchen (Lampyridae)</div>
+                        <div class="animal-status"><strong>Status:</strong> Mini-Laternen, die im Sommer Disco machen.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Tanzen in der Dämmerung, versuchen, Dates zu finden.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Lasst sie doch, sie sind die Romantiker der Nacht.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🐞 Marienkäfer (Coccinellidae)</div>
+                        <div class="animal-status"><strong>Status:</strong> Glücksbringer mit Punktemuster, frisst Blattläuse wie ein Weltmeister.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Krabbelt auf Blättern, ist beschäftigt mit Schädlingsbekämpfung.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Niemals! Das ist der beste biologische Schädlingsbekämpfer.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tier a-tier">
+                <div class="tier-header">
+                    <span class="tier-label">A</span>
+                    <span>Beobachten, nicht anfassen - Respektvoller Abstand ist Gold</span>
+                </div>
+                <div class="animals-grid">
+                    <div class="animal-card">
+                        <div class="animal-name">🦌 Reh (Capreolus capreolus)</div>
+                        <div class="animal-status"><strong>Status:</strong> Eleganter Waldtänzer, immer auf der Hut, hat die besten Ohren der Welt.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Bambi in echt, aber mit mehr Paranoia und einem Turbo-Flucht-Modus.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Macht einen Satz und ist weg. Natürlicher Ninja. Keine Chance.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🦊 Fuchs (Vulpes vulpes)</div>
+                        <div class="animal-status"><strong>Status:</strong> Schlaue Pfote, Master of Stealth und Überraschungs-Gast im Hühnerstall.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Beobachtet dich, bevor du ihn siehst. Hat immer einen Plan.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Verschwindet wie ein Magier. Tollwut-Check empfohlen, nur zur Sicherheit.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🦡 Dachs (Meles meles)</div>
+                        <div class="animal-status"><strong>Status:</strong> Gestreifter Graber, nächtlicher Einzelgänger mit einem Faible für Regenwürmer.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Schwarz-weiß und stämmig, buddelt überall, meist nachts.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Laut sein. Dachs trollt sich dann meist, ist kein Freund von Störungen.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🦝 Waschbär (Procyon lotor)</div>
+                        <div class="animal-status"><strong>Status:</strong> Maskierter Müllpanda, Einbrecher-Profi und Kletterkünstler.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Durchwühlt deinen Müll wie ein Detektiv auf Spurensuche.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Mülltonnen sichern. Sind klüger als gedacht! Oder einfach akzeptieren.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🦫 Wiesel (Mustela nivalis)</div>
+                        <div class="animal-status"><strong>Status:</strong> Hyperaktiver Schlauch mit Zähnen, der sich durch jeden Spalt zwängt.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Blitzschnell und wendig, jagt alles, was kleiner ist und sich bewegt.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Ist bereits weg, bevor du reagieren kannst. Zu schnell, zu flink.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🦉 Uhu (Bubo bubo)</div>
+                        <div class="animal-status"><strong>Status:</strong> Nächtlicher Weisheits-Boss, lautloser Jäger mit 360°-Kopf.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Große gelbe Augen starren in deine Seele, macht dir Angst mit Anwesenheit.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Wegschauen und weitergehen. Majestät respektieren. Oder er schaut dich aus.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🐕 Marderhund (Nyctereutes procyonoides)</div>
+                        <div class="animal-status"><strong>Status:</strong> Import aus Asien, sieht aus wie Waschbär-Hund-Mix, aber keiner weiß genau.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Verwirrt alle, keiner weiß, was das ist. Scheu und eher nachtaktiv.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Wie Fuchs behandeln, auch Tollwut möglich. Besser Abstand halten.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🐦 Specht (Picidae)</div>
+                        <div class="animal-status"><strong>Status:</strong> Der trommelnde Baumchirurg, sucht unermüdlich nach Käfern.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Klopft wie ein Bauarbeiter in der Nachbarschaft.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Lärm ignorieren oder Ohropax tragen. Der hört nicht auf.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🕊️ Waldkauz (Strix aluco)</div>
+                        <div class="animal-status"><strong>Status:</strong> Nächtlicher Rufer, sitzt gern auf alten Bäumen.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Hört man öfter als man ihn sieht. "Huu-hu-hu-huu!"</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Einfach weitergehen, ist nur die Hintergrundmusik des Waldes.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tier b-tier">
+                <div class="tier-header">
+                    <span class="tier-label">B</span>
+                    <span>Potenziell stressig - Vorsicht geboten, wenn ihr kein Abenteurer seid</span>
+                </div>
+                <div class="animals-grid">
+                    <div class="animal-card">
+                        <div class="animal-name">🐗 Wildschwein Einzelgänger (Sus scrofa)</div>
+                        <div class="animal-status"><strong>Status:</strong> Muskulöser Waldbewohner, hat schlechte Laune und scharfe Zähne.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Grunzt bedrohlich, wühlt aggressiv im Boden. Nicht ansprechen.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Langsam zurückziehen, laut sprechen, Baum suchen. Und rennen!</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🦔 Marder (Martes martes)</div>
+                        <div class="animal-status"><strong>Status:</strong> Kletterkünstler mit Zähnen, Auto-Kabel-Vernichter der Extraklasse.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Meist nachts, zerstört dein Auto aus Spaß. Deine Versicherung lacht.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Ultraschall oder beten, dass er weiterzieht. Nervig!</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🐍 Kreuzotter (Vipera berus)</div>
+                        <div class="animal-status"><strong>Status:</strong> Einzige giftige Schlange Deutschlands, meist mit Zickzack-Muster.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Sonnt sich gerne, beißt, wenn gestört. Nicht auf sie treten!</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Großen Bogen machen, nicht provozieren! Und hoffen, sie ist schon weg.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🦌 Hirsch (Cervus elaphus)</div>
+                        <div class="animal-status"><strong>Status:</strong> Großer Boss des Waldes, besonders in Brunftzeit aggressiv und laut.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Majestätisch aber unberechenbar, röhrt laut wie ein Rockkonzert.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Respektabstand halten, nicht zwischen Hirsch und Rudel geraten. Dann passt das.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🦅 Bussard (Buteo buteo)</div>
+                        <div class="animal-status"><strong>Status:</strong> Kreisender Greifvogel, scharf Augen und Krallen, sucht nach Mäusen.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Kreist über dir, beobachtet alles von oben. Fühlt sich beobachtet.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Fliegt eh weg, aber nicht zu nah an Nest gehen. Die Mama-Bussard ist streng.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🦗 Gottesanbeterin (Mantis religiosa)</div>
+                        <div class="animal-status"><strong>Status:</strong> Exotischer Jäger, betet nicht, sondern wartet auf Beute.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Sitzt regungslos, dann schlägt sie blitzschnell zu.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Einfach bewundern, ist zu klein um euch zu stressen.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tier c-tier">
+                <div class="tier-header">
+                    <span class="tier-label">C</span>
+                    <span>Ärger möglich - Wachsam bleiben, das kann unangenehm werden</span>
+                </div>
+                <div class="animals-grid">
+                    <div class="animal-card">
+                        <div class="animal-name">🐕 Streunende Hunde</div>
+                        <div class="animal-status"><strong>Status:</strong> Herrenlose Rudel, unberechenbar und manchmal sehr hungrig.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Können aggressiv werden, besonders in Gruppen. Nicht unterschätzen.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Nicht wegrennen, groß machen, laut sprechen. Im Notfall Stock zur Hand.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🐺 Schakal (Canis aureus)</div>
+                        <div class="animal-status"><strong>Status:</strong> Goldschakal wandert aus Südosteuropa ein, sieht aus wie ein schlanker Fuchs.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Selten, aber wird häufiger, meist scheu. Wenn er euch ansieht, seid ihr nicht alleine.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Wie bei Wolf: nicht rennen, Abstand halten, laut sein.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🐕‍🦺 Hirtenhunde</div>
+                        <div class="animal-status"><strong>Status:</strong> Beschützen ihre Herde, können territorial sein und bellen gern.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Bellen laut, stellen sich zwischen dich und Herde. Keine Umarmung!</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Langsam wegbewegen, nicht zur Herde gehen. Respektiert ihre Arbeit.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🐱 Wildkatze (Felis silvestris)</div>
+                        <div class="animal-status"><strong>Status:</strong> Scheue Urkatze, größer als Hauskatze, sieht aus wie Tiger im Mini-Format.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Extrem selten, meist nachts. Blitzschnell verschwunden.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Nicht anfassen! Kann kratzen und beißen, wie eine wütende Hauskatze, nur größer.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🦅 Falken (Falco)</div>
+                        <div class="animal-status"><strong>Status:</strong> Schnelle Jäger, verteidigen Revier aggressiv, besonders in Brutzeit.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Sturzflug-Attacken möglich bei Nestnähe. Achtung, Kopfnuss!</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Weg vom Nest, Kopf schützen. Ein Hut kann Wunder wirken.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🐺 Wolf (Canis lupus)</div>
+                        <div class="animal-status"><strong>Status:</strong> Ist zurück in Deutschland, meist scheu, aber wachsam sein.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Sehr selten, beobachtet aus Distanz. Fühlt sich an wie ein Westernfilm.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Groß machen, laut sprechen, nicht wegrennen. Wenn er nicht geht, dann rennt.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🦉 Habichtskauz (Strix uralensis)</div>
+                        <div class="animal-status"><strong>Status:</strong> Große Eule, territorial bei Nestern.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Kann euch bei Nestnähe anfliegen.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Abstand halten vom Nest.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🐜 Rote Waldameise (Formica rufa)</div>
+                        <div class="animal-status"><strong>Status:</strong> Winzig, aber ihr Biss brennt wie tausend Sonnen.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Lauf über ihren Bau und du hast ein Problem.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Weiterlaufen und danach kratzen. Viel kratzen.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tier d-tier">
+                <div class="tier-header">
+                    <span class="tier-label">D</span>
+                    <span>Lebensgefahr - Ernsthafte Bedrohung, hier hilft kein Witz mehr</span>
+                </div>
+                <div class="animals-grid">
+                    <div class="animal-card">
+                        <div class="animal-name">🐻 Braunbär (Ursus arctos)</div>
+                        <div class="animal-status"><strong>Status:</strong> 300kg Muskelpaket, theoretisch in Deutschland möglich (Einzelgänger).</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Hoffentlich nie, aber Alpen-Nähe = Risiko. Macht euch klein.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Tot stellen oder beten. Nicht wegrennen! Die sind schneller als ihr denkt.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🐺 Wolfsrudel (Canis lupus)</div>
+                        <div class="animal-status"><strong>Status:</strong> Organisierte Gruppe, deutlich gefährlicher als Einzelwolf. Sehr clever.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Umkreisen dich, koordinierte Jagd. Das ist kein Film mehr.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Feuer, Rücken an Baum, sehr laut werden. Oder habt einen Freund, der langsamer ist.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🐍 Aspisviper (Vipera aspis)</div>
+                        <div class="animal-status"><strong>Status:</strong> Selten, aber giftiger als die Kreuzotter.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Versteckt sich gut, Biss ist schmerzhaft.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Nicht berühren, sofort Krankenhaus bei Biss.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tier f-tier">
+                <div class="tier-header">
+                    <span class="tier-label">F</span>
+                    <span>NOPE - Absolute Lebensgefahr, hier hilft nur noch die Flucht</span>
+                </div>
+                <div class="animals-grid">
+                    <div class="animal-card">
+                        <div class="animal-name">🐻 Bärin mit Jungen</div>
+                        <div class="animal-status"><strong>Status:</strong> Mama-Modus = Killermodus aktiviert. Sie verteidigt ihre Babys bis zum bitteren Ende.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Du bist bereits tot, weißt es nur noch nicht. Es gibt kein Entkommen.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Zeitmaschine erfinden und nicht hierher gehen. Oder hoffen, dass du unsichtbar bist.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🐗 Wildschweinmutter mit Frischlingen</div>
+                        <div class="animal-status"><strong>Status:</strong> 150kg Mutterinstinkt mit Stoßzähnen. Die wahren "Rammböcke" des Waldes.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Rennt direkt auf dich zu, keine Warnung. Game Over.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Auf Baum klettern oder Friedhof besuchen. Es gibt keine andere Option.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🐕 Tollwütiges Hunderudel</div>
+                        <div class="animal-status"><strong>Status:</strong> Zombie-Apocalypse für Arme. Unberechenbar und gefährlich.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Schaum vor'm Maul, kein Fluchtinstinkt. Sie jagen dich.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Sofort Krankenhaus, Tetanus-Impfung checken. Wenn ihr überlebt.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🏹 Wahnsinniger Jäger</div>
+                        <div class="animal-status"><strong>Status:</strong> Mensch ohne Verstand, mit Waffe. Unterschätzt das nicht.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Schießt auf alles, was sich bewegt. Auch auf euch.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Polizei rufen, Warnweste anziehen. Und hoffen, ihr werdet nicht verwechselt.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🧙‍♂️ Eremit</div>
+                        <div class="animal-status"><strong>Status:</strong> Waldmensch mit unbekannten Absichten. Lebt seit Jahren im Wald, hasst Menschen.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Starrer Blick, spricht in Rätseln, riecht nach Moos und Misstrauen.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Respektvoll grüßen und schnell weiter. Oder er erzählt euch seine Lebensgeschichte.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🐱 Luchs (Lynx lynx)</div>
+                        <div class="animal-status"><strong>Status:</strong> Lautloser Killer mit Pinselohren. Meister der Tarnung.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Siehst du nicht kommen, perfekter Jäger. Du bist seine Beute.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Groß machen, schreien, nicht wegrennen. Aber ehrlich, die sind zu gut.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tier bonus-tier">
+                <div class="tier-header">
+                    <span class="tier-label">💀</span>
+                    <span>Bonus: Flug-/Nervtiere - Die wahren Endgegner, die euch zur Weißglut treiben</span>
+                </div>
+                <div class="animals-grid">
+                    <div class="animal-card">
+                        <div class="animal-name">🦟 Mücken (Culicidae)</div>
+                        <div class="animal-status"><strong>Status:</strong> Vampir-Drohnen, kommen in Schwärmen und sind nie satt.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Summen um 3 Uhr nachts im Ohr. Der Wahnsinn beginnt.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Chemische Kriegsführung oder auswandern. Es gibt keine Gnade.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🕷️ Zecken (Ixodida)</div>
+                        <div class="animal-status"><strong>Status:</strong> Krankheits-Überträger, winzig aber tödlich. Die stillen Attentäter.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Merkst du erst, wenn's zu spät ist und sie schon bohren.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Pinzette und Gebete, dann Arzt. Und danach immer Panik haben.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🦟 Bremsen (Tabanidae)</div>
+                        <div class="animal-status"><strong>Status:</strong> Fliegende Schmerz-Maschinen, die deine Haut durchbohren.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Beißt ohne Vorwarnung, tut höllisch weh. Wie ein Stich mit einer Nadel.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Klatschen, bis die Hände bluten. Die einzigen, die du wirklich jagen willst.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🪰 Fliegen (Diptera)</div>
+                        <div class="animal-status"><strong>Status:</strong> Nerv-Faktoren, landen überall drauf und lieben dein Essen.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Kreisen ums Essen wie Geier, sind einfach nur nervig.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Fliegenklatsche oder aufgeben. Der Kampf ist aussichtslos.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🐝 Hornissen (Vespa crabro)</div>
+                        <div class="animal-status"><strong>Status:</strong> Groß, laut, aber meist friedlicher als ihr Ruf.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Brummt lautstark an euch vorbei, sieht bedrohlich aus.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Ruhe bewahren und Abstand halten. Die sind nur an Blumen interessiert.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tier mythic-tier">
+                <div class="tier-header">
+                    <span class="tier-label">✨</span>
+                    <span>Mythic Encounter - Wenn das Universum euch einen Streich spielt</span>
+                </div>
+                <div class="animals-grid">
+                    <div class="animal-card">
+                        <div class="animal-name">👻 Der Beobachter</div>
+                        <div class="animal-status"><strong>Status:</strong> Ein unerklärliches Gefühl, ständig beobachtet zu werden.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Eine unbestimmte Präsenz in der Stille des Waldes. Wenn es nicht aufhört, gib den Spot auf.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Den Ort verlassen und nicht mehr darüber nachdenken. Manchmal ist es nur das Unterbewusstsein.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🌲 Der Flüstern des Waldes</div>
+                        <div class="animal-status"><strong>Status:</strong> Die Bäume scheinen dir etwas erzählen zu wollen, aber du verstehst es nicht.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Windgeräusche, die wie Stimmen klingen, als ob der Wald ein Eigenleben hätte.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Ignorieren oder versuchen, mit dem Wald zu kommunizieren. Vielleicht versteht er dich.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🌌 Verlorene Zeit</div>
+                        <div class="animal-status"><strong>Status:</strong> Plötzliche Lücken in der Zeit, als ob Minuten oder Stunden verschwunden wären.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Du schaust auf die Uhr und es ist viel später, als es sein sollte, ohne Erklärung.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Ein GPS-Gerät mitnehmen und immer die Zeit im Auge behalten. Oder akzeptieren, dass der Wald seine eigenen Regeln hat.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="Berg" class="tab-content">
+            <h2>⛰️ Bergtiere - Die Gipfelstürmer und Felsenbewohner ⛰️</h2>
+            <div class="tier s-tier">
+                <div class="tier-header">
+                    <span class="tier-label">S</span>
+                    <span>Harmlos & Chillig - Die Kletterkünstler der Alpen</span>
+                </div>
+                <div class="animals-grid">
+                    <div class="animal-card">
+                        <div class="animal-name">🐐 Gämse (Rupicapra rupicapra)</div>
+                        <div class="animal-status"><strong>Status:</strong> Elegante Bergziege, springt über Felsspalten, als gäbe es keine Schwerkraft.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Balanciert auf Graten, sieht entspannt aus, während ihr fast abstürzt.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Versucht nicht, mit ihr zu klettern. Das schafft ihr nicht. Lasst sie in Ruhe.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🦅 Steinadler (Aquila chrysaetos)</div>
+                        <div class="animal-status"><strong>Status:</strong> König der Lüfte, schwebt majestätisch über den Gipfeln.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Sieht euch wahrscheinlich zuerst, dann zieht er seine Kreise. Fühlt sich beobachtet.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Bewundernd zuschauen und hoffen, dass er keine Beute in euch sieht.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name"> marmot (Marmota marmota)</div>
+                        <div class="animal-status"><strong>Status:</strong> Pfeifendes Plüschtier, sonnt sich gerne auf warmen Steinen.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Sitzt auf Felsen, pfeift zur Warnung, dann ab ins Loch. Die Alarmanlage der Berge.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Einfach vorbeigehen, sie sind zu beschäftigt mit Sonnenbaden und Pfeifen.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🦗 Bergheuschrecke (Podisma pedestris)</div>
+                        <div class="animal-status"><strong>Status:</strong> Hüpft über die Almwiesen, versteckt sich im Gras.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Springt euch unerwartet an. Harmlos, aber ein Schockmoment.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Springt von selbst weg.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tier a-tier">
+                <div class="tier-header">
+                    <span class="tier-label">A</span>
+                    <span>Beobachten, nicht anfassen - Respektvoller Abstand ist Pflicht</span>
+                </div>
+                <div class="animals-grid">
+                    <div class="animal-card">
+                        <div class="animal-name">🐏 Steinbock (Capra ibex)</div>
+                        <div class="animal-status"><strong>Status:</strong> Gigantische Hörner, klettert wo niemand kann und sieht dabei cool aus.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Beeindruckend, aber haltet Abstand zu den Hörnern. Die sind zum Kämpfen da.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Die finden eh bessere Aussichtspunkte als ihr. Kein Wettbewerb.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🦊 Fuchs (Vulpes vulpes)</div>
+                        <div class="animal-status"><strong>Status:</strong> Auch in höheren Lagen unterwegs, immer auf der Suche nach Beute.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Hält Abstand, beobachtet seine Umgebung. Der Bergfuchs ist besonders schlau.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Ignorieren, er ist schneller als ihr. Und viel besser im Gelände.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🦌 Hirsch (Cervus elaphus)</div>
+                        <div class="animal-status"><strong>Status:</strong> In den bewaldeten Bergregionen zu finden, besonders imposant.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Majestätisch, aber kann unberechenbar sein, besonders im Herbst.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Respektabstand halten. Nicht in die Quere kommen.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🦅 Geier (Gyps fulvus)</div>
+                        <div class="animal-status"><strong>Status:</strong> Kreist am Himmel, wartet geduldig auf den nächsten Snack.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Könnte über euch schweben, wenn ihr ungeschickt seid.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Am besten nicht hinfallen und regungslos bleiben.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tier d-tier">
+                <div class="tier-header">
+                    <span class="tier-label">D</span>
+                    <span>Lebensgefahr - Ernsthafte Bedrohung, hier kann es gefährlich werden</span>
+                </div>
+                <div class="animals-grid">
+                    <div class="animal-card">
+                        <div class="animal-name">🐻 Braunbär (Ursus arctos)</div>
+                        <div class="animal-status"><strong>Status:</strong> 300kg Muskelpaket, manchmal auch in den Alpen gesichtet.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Hoffentlich nie, aber Alpen-Nähe = Risiko. Macht euch so groß wie möglich.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Tot stellen oder beten. Nicht wegrennen! Die sind verdammt schnell.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🐺 Wolfsrudel (Canis lupus)</div>
+                        <div class="animal-status"><strong>Status:</strong> Organisierte Gruppe, auch in manchen Bergregionen anzutreffen.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Könnten euch beobachten. Lieber nicht die Gruppe verlieren.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Feuer, laute Geräusche, fest zusammenbleiben.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tier f-tier">
+                <div class="tier-header">
+                    <span class="tier-label">F</span>
+                    <span>NOPE - Absolute Lebensgefahr, wenn ihr hier seid, habt ihr ein Problem</span>
+                </div>
+                <div class="animals-grid">
+                    <div class="animal-card">
+                        <div class="animal-name">🐻 Bärin mit Jungen</div>
+                        <div class="animal-status"><strong>Status:</strong> Mama-Modus = Killermodus aktiviert, besonders in Berggegenden.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Du bist bereits tot, weißt es nur noch nicht. Es gibt keinen Ausweg.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Zeitmaschine erfinden und nicht hierher gehen. Es ist ihr Revier.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🐐 Wütender Steinbock (Capra ibex)</div>
+                        <div class="animal-status"><strong>Status:</strong> Ein Bock, der seinen schlechten Tag an euch auslässt.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Rennt mit gesenkten Hörnern auf euch zu.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> So schnell wie möglich wegklettern oder verstecken.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tier mythic-tier">
+                <div class="tier-header">
+                    <span class="tier-label">✨</span>
+                    <span>Mythic Encounter - Unglaubliche Berg-Phänomene</span>
+                </div>
+                <div class="animals-grid">
+                    <div class="animal-card">
+                        <div class="animal-name">🏔️ Der Berggeist</div>
+                        <div class="animal-status"><strong>Status:</strong> Eine ungreifbare Präsenz, die die Bergwelt beschützt.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Ein plötzlicher, unerklärlicher Windstoß oder das Gefühl, nicht allein zu sein.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Respektvoll sein und den Berg in Ruhe lassen.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🌫️ Der Nebel-Wanderer</div>
+                        <div class="animal-status"><strong>Status:</strong> Eine Gestalt, die im dichten Nebel erscheint und verschwindet.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Eine schemenhafte Figur im Nebel, die sich nicht identifizieren lässt.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Ruhig bleiben und aufpassen, wohin man tritt. Oder einfach das Phänomen beobachten.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="Steppe" class="tab-content">
+            <h2>🌾 Steppentiere - Die weiten Wanderer und Versteckspieler 🌾</h2>
+            <div class="tier s-tier">
+                <div class="tier-header">
+                    <span class="tier-label">S</span>
+                    <span>Harmlos & Chillig - Die Grashüpfer und Blumenliebhaber</span>
+                </div>
+                <div class="animals-grid">
+                    <div class="animal-card">
+                        <div class="animal-name">🦘 Feldhamster (Cricetus cricetus)</div>
+                        <div class="animal-status"><strong>Status:</strong> Kleiner Nager mit großen Backentaschen, immer auf Vorratssuche.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Huscht schnell durchs hohe Gras. Süß, aber selten zu sehen.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Versteckt sich von selbst. Ist ja kein Haustier, das man anleinen kann.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🦉 Steinkauz (Athene noctua)</div>
+                        <div class="animal-status"><strong>Status:</strong> Kleiner Eulenkrieger, jagt Mäuse bei Dämmerung mit Laserblick.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Sitzt auf Zaunpfählen, große Augen. Sehr geduldig, beobachtet seine Umgebung.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Macht nix, einfach nicht stören. Die Eule ist in ihrer eigenen Welt.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🕊️ Rebhuhn (Perdix perdix)</div>
+                        <div class="animal-status"><strong>Status:</strong> Bodenbewohnender Vogel, perfekt getarnt im Feld.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Fliegt plötzlich laut auffliegend aus dem Gras auf.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Ist schon weg, bevor ihr euch erschrecken könnt.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🦎 Zauneidechse (Lacerta agilis)</div>
+                        <div class="animal-status"><strong>Status:</strong> Sonnenanbeter, huscht flink durchs Gras.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Zieht sich blitzschnell zurück, wenn ihr zu nah kommt.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Einfach in Ruhe lassen. Die sind beschäftigt mit Insektenjagd.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tier a-tier">
+                <div class="tier-header">
+                    <span class="tier-label">A</span>
+                    <span>Beobachten, nicht anfassen - Respektvoller Abstand</span>
+                </div>
+                <div class="animals-grid">
+                    <div class="animal-card">
+                        <div class="animal-name">🦊 Fuchs (Vulpes vulpes)</div>
+                        <div class="animal-status"><strong>Status:</strong> Schlaue Pfote, auch in offenen Landschaften unterwegs.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Hält Abstand, beobachtet seine Umgebung. Der König der Steppe.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Ignorieren, er ist schneller als ihr und hat bessere Pläne.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🦌 Reh (Capreolus capreolus)</div>
+                        <div class="animal-status"><strong>Status:</strong> Auch in Feldern und an Waldrändern zu finden, sucht Äsung.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Äst an Gräsern, flüchtet bei Störung. Fühlt sich beobachtet.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Einfach nicht aufschrecken, dann verschwinden sie von selbst.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🦫 Feldhase (Lepus europaeus)</div>
+                        <div class="animal-status"><strong>Status:</strong> Schnellster Sprinter auf offener Fläche, Meister der Tarnung.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Rast davon, wenn ihr euch nähert.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Ist schon weg. Keine Chance.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🦅 Kornweihe (Circus cyaneus)</div>
+                        <div class="animal-status"><strong>Status:</strong> Eleganter Greifvogel, gleitet tief über die Felder.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Sucht nach Mäusen und kleinen Vögeln.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Fliegt eh weg.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tier b-tier">
+                <div class="tier-header">
+                    <span class="tier-label">B</span>
+                    <span>Potenziell stressig - Vorsicht geboten</span>
+                </div>
+                <div class="animals-grid">
+                    <div class="animal-card">
+                        <div class="animal-name">🐗 Wildschwein Einzelgänger (Sus scrofa)</div>
+                        <div class="animal-status"><strong>Status:</strong> Manchmal auch in angrenzenden Steppengebieten auf Futtersuche.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Kann überraschend auftauchen.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Langsam zurückziehen, Baum suchen. (Schwierig in der Steppe!)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tier c-tier">
+                <div class="tier-header">
+                    <span class="tier-label">C</span>
+                    <span>Ärger möglich - Wachsam bleiben</span>
+                </div>
+                <div class="animals-grid">
+                    <div class="animal-card">
+                        <div class="animal-name">🐺 Wolf (Canis lupus)</div>
+                        <div class="animal-status"><strong>Status:</strong> In manchen Steppengebieten heimisch, jagt Wild.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Selten, aber wachsam sein.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Groß machen, laut sprechen, nicht wegrennen.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🐍 Wiesenotter (Vipera ursinii)</div>
+                        <div class="animal-status"><strong>Status:</strong> Sehr selten, aber giftig.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Gut getarnt im Gras. Nicht drauftreten!</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Abstand halten. Bei Biss sofort ins Krankenhaus.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tier mythic-tier">
+                <div class="tier-header">
+                    <span class="tier-label">✨</span>
+                    <span>Mythic Encounter - Seltenheiten der Weite</span>
+                </div>
+                <div class="animals-grid">
+                    <div class="animal-card">
+                        <div class="animal-name">🌌 Die Leuchtenden Gräser</div>
+                        <div class="animal-status"><strong>Status:</strong> Pflanzen, die in der Nacht ein sanftes, unerklärliches Licht abgeben.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Ein magischer Anblick in der Dunkelheit, der zum Innehalten einlädt.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Einfach genießen. Oder versuchen, herauszufinden, was die Ursache ist.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🏜️ Der Ruf der Leere</div>
+                        <div class="animal-status"><strong>Status:</strong> Ein entferntes, unbestimmtes Geräusch, das in der Stille der Steppe zu hören ist.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Ein Geräusch, das man nicht zuordnen kann, das aber eine tiefe Resonanz hat.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Weitergehen und nicht darüber nachdenken. Oder sich darauf einlassen und versuchen, die Botschaft zu entschlüsseln.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="Urban" class="tab-content">
+            <h2>🏙️ Urbane Tiere - Die Stadt-Helden und die stillen Beobachter 🏙️</h2>
+            <div class="tier s-tier">
+                <div class="tier-header">
+                    <span class="tier-label">S</span>
+                    <span>Harmlos & Chillig - Die Mitbewohner der Großstadt</span>
+                </div>
+                <div class="animals-grid">
+                    <div class="animal-card">
+                        <div class="animal-name">🐦 Haustaube (Columba livia domestica)</div>
+                        <div class="animal-status"><strong>Status:</strong> Fliegende Ratten, aber harmlos und immer hungrig. Spezialisten für Brotkrümel.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Hocken auf Dächern, betteln um Brotkrümel. Können euch verfolgen.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Ignorieren, oder Futter wegnehmen. Nicht füttern! Sonst kommen alle.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🐿️ Eichhörnchen (Sciurus vulgaris)</div>
+                        <div class="animal-status"><strong>Status:</strong> Auch in Stadtparks aktiv, klaut Nüsse aus Kinderwagen mit chirurgischer Präzision.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Rennt den Baum hoch, fixiert euch mit großen Augen. Sehr frech.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Nüsse festhalten. Sind zu schnell für normale Menschen.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🐦 Spatz (Passer domesticus)</div>
+                        <div class="animal-status"><strong>Status:</strong> Überall, der kleine freche Piepmatz der Stadt. Der inoffizielle Bürgermeister.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Sitzt am Fensterbrett, zwitschert frech. Bittet um ein Stück Kuchen.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Unmöglich. Sind zu viele. Einfach akzeptieren.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🐭 Hausmaus (Mus musculus)</div>
+                        <div class="animal-status"><strong>Status:</strong> Winziger Mitbewohner, huscht ungesehen durch die Wohnung.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Ein flüchtiger Schatten im Augenwinkel. Oder knabbert am Kabel.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Mäusefalle (wenn ihr das Herz dazu habt) oder Katze mieten.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🐦 Amsel (Turdus merula)</div>
+                        <div class="animal-status"><strong>Status:</strong> Der Melodienmeister im Stadtgarten, singt den ganzen Tag.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Hüpft über den Rasen, zieht Regenwürmer heraus.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Genießt den Gesang. Das ist eure persönliche Beschallung.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🐞 Kellerassel (Porcellio scaber)</div>
+                        <div class="animal-status"><strong>Status:</strong> Das kleine Krabbeltier aus der dunklen Ecke.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Taucht plötzlich auf, wenn ihr den Keller aufräumt.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Fängt sie vorsichtig ein und setzt sie nach draußen. Oder schreit und rennt.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tier a-tier">
+                <div class="tier-header">
+                    <span class="tier-label">A</span>
+                    <span>Beobachten, nicht anfassen - Respektvoller Abstand ist gesünder</span>
+                </div>
+                <div class="animals-grid">
+                    <div class="animal-card">
+                        <div class="animal-name">🦊 Fuchs (Vulpes vulpes)</div>
+                        <div class="animal-status"><strong>Status:</strong> Der clevere Stadtfuchs, oft in der Dämmerung unterwegs.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Durchsucht Mülltonnen, scheu aber neugierig. Oder schläft auf der Parkbank.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Mülltonnen sichern. Ist ein smarter Bursche, der nichts verschwendet.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🦝 Waschbär (Procyon lotor)</div>
+                        <div class="animal-status"><strong>Status:</strong> Maskierter Müll-Ninja, wird in Städten immer häufiger.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> In der Nacht, durchwühlt Garten oder Müll. Manchmal auch im Schlafzimmer.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Müll sichern, sind hartnäckige Feinschmecker. Und sie klettern überall.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🦡 Dachs (Meles meles)</div>
+                        <div class="animal-status"><strong>Status:</strong> Nächtlicher Graber, auch in ruhigeren Stadtgebieten mit Gärten.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Selten, gräbt im Garten oder Park nach Würmern. Ein richtiger Schaufelkönig.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Ist scheu, verschwindet von selbst bei Lärm.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🦉 Waldohreule (Asio otus)</div>
+                        <div class="animal-status"><strong>Status:</strong> Jagt Mäuse in Parks und Friedhöfen, hat tolle Ohren.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Sitzt regungslos auf Ästen, perfekt getarnt.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Lässt euch in Ruhe, wenn ihr sie in Ruhe lasst.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🐀 Wanderratte (Rattus norvegicus)</div>
+                        <div class="animal-status"><strong>Status:</strong> Intelligente Überlebenskünstler, lieben die Kanalisation.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Huscht im Dunkeln durch Hinterhöfe. Nicht gruselig, aber ekelig.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Schädlingsbekämpfer. Oder eine Katze.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tier b-tier">
+                <div class="tier-header">
+                    <span class="tier-label">B</span>
+                    <span>Potenziell stressig - Vorsicht geboten, das kann nervig werden</span>
+                </div>
+                <div class="animals-grid">
+                    <div class="animal-card">
+                        <div class="animal-name">🐗 Wildschwein (Sus scrofa)</div>
+                        <div class="animal-status"><strong>Status:</strong> Kommen in Außenbezirke, suchen Futter im Garten.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Unerwartet, kann aggressiv sein, besonders mit Jungen.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Ruhe bewahren, langsam zurückziehen, auf Distanz bleiben.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🦔 Marder (Martes martes)</div>
+                        <div class="animal-status"><strong>Status:</strong> Dein Auto-Feind, knabbert Kabel im Motorraum, liebt Gummi.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Meist nachts, hörst Kratzen im Auto. Der wahre Autoterrorist.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Marderschreck oder Motorwäsche. Viel Glück!</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🦆 Kanada-Gans (Branta canadensis)</div>
+                        <div class="animal-status"><strong>Status:</strong> Aggressiver Gartenteich-Terrorist, verteidigt Küken mit Zischen.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Zischt, läuft auf dich zu, verteidigt ihr Territorium.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Abstand halten, sind überraschend wehrhaft und laut.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🦢 Höckerschwan (Cygnus olor)</div>
+                        <div class="animal-status"><strong>Status:</strong> Eleganter Schwan, aber kann sehr territorial sein, wenn es um Nester geht.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Zischt, verfolgt euch, versucht, euch zu beißen.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Nicht nähern, großen Bogen machen.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tier c-tier">
+                <div class="tier-header">
+                    <span class="tier-label">C</span>
+                    <span>Ärger möglich - Wachsam bleiben, das kann unangenehm werden</span>
+                </div>
+                <div class="animals-grid">
+                    <div class="animal-card">
+                        <div class="animal-name">🐺 Wolf (Canis lupus)</div>
+                        <div class="animal-status"><strong>Status:</strong> Selten, aber einzelne Wölfe können auch mal Stadtrand erreichen.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Extrem unwahrscheinlich, aber möglich. Sieht euch an wie eine große Mahlzeit.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Groß machen, laut sein, nicht wegrennen. Aber hey, das ist ein Wolf!</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tier mythic-tier">
+                <div class="tier-header">
+                    <span class="tier-label">✨</span>
+                    <span>Mythic Encounter - Wenn die Stadt lebendig wird</span>
+                </div>
+                <div class="animals-grid">
+                    <div class="animal-card">
+                        <div class="animal-name">🏙️ Die Synchronisierten Lichter</div>
+                        <div class="animal-status"><strong>Status:</strong> Ampeln und Straßenlaternen, die unerklärlicherweise im Takt blinken oder ausgehen.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Ein unheimliches Lichtspiel in der Nacht, das keinen Sinn ergibt.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Einfach weitergehen und nicht zu viel darüber nachdenken. Die Stadt hat ihre eigenen Geheimnisse.</div>
+                    </div>
+                    <div class="animal-card">
+                        <div class="animal-name">🎶 Die Stadtmelodie</div>
+                        <div class="animal-status"><strong>Status:</strong> Eine leise, unerklärliche Melodie, die in der Stille der Nacht durch die Straßen weht.</div>
+                        <div class="animal-encounter"><strong>Begegnung:</strong> Ein wunderschönes, aber geisterhaftes Lied, das aus dem Nichts zu kommen scheint.</div>
+                        <div class="animal-removal"><strong>Loswerden:</strong> Lauschen und genießen. Oder die Kopfhörer aufsetzen.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+
+            // Get all elements with class="tab-content" and hide them
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Get all elements with class="tab-button" and remove the class "active"
+            tablinks = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            // Show the current tab, and add an "active" class to the button that opened the tab
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        // Set the default active tab on page load
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelector('.tab-button').click();
+        });
+    </script>
+</body>
+</html>

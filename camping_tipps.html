@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wandern & Zelten - Survival Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(45deg, #2c3e50, #3498db);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,5 90,90 10,90" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+            animation: float 20s infinite linear;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUp 0.6s ease forwards;
+        }
+
+        .section:nth-child(2) { animation-delay: 0.1s; }
+        .section:nth-child(3) { animation-delay: 0.2s; }
+        .section:nth-child(4) { animation-delay: 0.3s; }
+        .section:nth-child(5) { animation-delay: 0.4s; }
+        .section:nth-child(6) { animation-delay: 0.5s; }
+        .section:nth-child(7) { animation-delay: 0.6s; }
+
+        .section-title {
+            font-size: 2.2em;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .section-icon {
+            font-size: 1.2em;
+            background: linear-gradient(45deg, #e74c3c, #f39c12);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 25px;
+        }
+
+        .tip-card {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            padding: 30px;
+            border-left: 5px solid;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            min-height: 200px;
+        }
+
+        .tip-card::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: all 0.6s ease;
+        }
+
+        .tip-card:hover::before {
+            top: 100%;
+        }
+
+        .tip-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .essential { border-left-color: #e74c3c; }
+        .comfort { border-left-color: #3498db; }
+        .hygiene { border-left-color: #27ae60; }
+        .safety { border-left-color: #f39c12; }
+        .gear { border-left-color: #9b59b6; }
+        .food { border-left-color: #e67e22; }
+        .weather { border-left-color: #1abc9c; }
+
+        .tip-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tip-description {
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+
+        .tip-details {
+            background: rgba(52, 152, 219, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 3px solid #3498db;
+        }
+
+        .tip-details ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .tip-details li {
+            margin: 8px 0;
+            color: #2c3e50;
+        }
+
+        .pro-tip {
+            background: rgba(52, 152, 219, 0.1);
+            border-left: 3px solid #3498db;
+            padding: 12px 15px;
+            border-radius: 5px;
+            font-style: italic;
+            color: #2980b9;
+            margin-top: 15px;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: rgba(231, 76, 60, 0.1);
+            border-left: 3px solid #e74c3c;
+            padding: 12px 15px;
+            border-radius: 5px;
+            color: #c0392b;
+            margin-top: 15px;
+            font-weight: 500;
+        }
+
+        .hack {
+            background: rgba(155, 89, 182, 0.1);
+            border-left: 3px solid #9b59b6;
+            padding: 12px 15px;
+            border-radius: 5px;
+            color: #8e44ad;
+            margin-top: 15px;
+            font-weight: 500;
+        }
+
+        .optional-note {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-top: 10px;
+        }
+
+        .checklist {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-top: 50px;
+        }
+
+        .checklist h3 {
+            font-size: 2em;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .checklist-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            font-size: 1.1em;
+        }
+
+        .checklist-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(8px);
+        }
+
+        .checkmark {
+            width: 24px;
+            height: 24px;
+            border: 2px solid white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(-50px, -50px) rotate(360deg); }
+        }
+
+        @keyframes slideUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2em; }
+            .header p { font-size: 1em; }
+            .content { padding: 20px; }
+            .tips-grid { grid-template-columns: 1fr; }
+            .tip-card { min-height: auto; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏕️ Wandern & Zelten</h1>
+            <p>Der ultimative Survival Guide - Von Anfänger zu Outdoor-Pro</p>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">🎒</span>
+                    Schlaf-Hacks & Comfort
+                </h2>
+                <div class="tips-grid">
+                    <div class="tip-card comfort">
+                        <div class="tip-title">🧦 Socken-System richtig machen</div>
+                        <div class="tip-description">
+                            Pack mindestens 3 Paar Socken ein: Wandersocken (die werden dreckig), Ersatz-Wandersocken, und HEILIGE Schlafsocken die NIEMALS in Schuhe kommen.
+                        </div>
+                        <div class="tip-details">
+                            <strong>Das Socken-Ritual:</strong>
+                            <ul>
+                                <li>Abends: Wandersocken ausziehen, Füße mit Feuchttuch säubern</li>
+                                <li>Frische Schlafsocken anziehen (nur im Schlafsack!)</li>
+                                <li>Morgens: Schlafsocken aus, frische Wandersocken an</li>
+                                <li>Dreckige Wandersocken an den Rucksack zum Trocknen</li>
+                            </ul>
+                        </div>
+                        <div class="pro-tip">💡 Merinowolle stinkt auch nach 3 Tagen nicht und wärmt auch wenn feucht!</div>
+                    </div>
+
+                    <div class="tip-card comfort">
+                        <div class="tip-title">🛏️ Isomatte ist wichtiger als Schlafsack</div>
+                        <div class="tip-description">
+                            Die Kälte kommt zu 80% von unten! Eine gute Isomatte ist wichtiger als ein teurer Schlafsack. Mindestens 4cm dick, besser 6cm.
+                        </div>
+                        <div class="tip-details">
+                            <strong>Isomatten-Typen:</strong>
+                            <ul>
+                                <li><strong>Selbstaufblasend:</strong> Bequem, aber schwer und teuer</li>
+                                <li><strong>Aufblasbar:</strong> Leicht, pack-klein, aber Panne-anfällig</li>
+                                <li><strong>Schaumstoff:</strong> Unkaputtbar, günstig, aber sperrig</li>
+                                <li><strong>Kombi:</strong> Dünne aufblasbare + Schaumstoff-Backup</li>
+                            </ul>
+                        </div>
+                        <div class="warning">⚠️ Die dünnen Alu-"Rettungsdecken" sind nur für absolute Notfälle!</div>
+                    </div>
+
+                    <div class="tip-card comfort">
+                        <div class="tip-title">😴 Kissen-Lösungen für besseren Schlaf</div>
+                        <div class="tip-description">
+                            Ein Kissen macht den Unterschied zwischen "2 Stunden Gedöse" und "erholsamer Nacht". Verschiedene Optionen je nach Budget und Platz.
+                        </div>
+                        <div class="tip-details">
+                            <strong>Kissen-Optionen (von Budget bis Komfort):</strong>
+                            <ul>
+                                <li><strong>DIY:</strong> Kleidung in Kissenbezug stopfen</li>
+                                <li><strong>Aufblasbarer Kissenbezug:</strong> 5€, füllen mit Kleidung</li>
+                                <li><strong>Aufblasbares Kissen:</strong> 15€, kompakt, bequem</li>
+                                <li><strong>Memory-Foam Camping-Kissen:</strong> 30€, wie Zuhause</li>
+                            </ul>
+                        </div>
+                        <div class="optional-note">💭 Falls möglich: Nimm ein kleines Kissen von Zuhause mit - Vertrauter Geruch hilft beim Einschlafen</div>
+                    </div>
+
+                    <div class="tip-card comfort">
+                        <div class="tip-title">🌡️ Temperatur-Management im Schlafsack</div>
+                        <div class="tip-description">
+                            Zu warm oder zu kalt - beides versaut den Schlaf. Lerne das Zwiebel-System auch im Schlafsack anzuwenden.
+                        </div>
+                        <div class="tip-details">
+                            <strong>Schlafsack-Schichten:</strong>
+                            <ul>
+                                <li><strong>Basis:</strong> Lange Unterwäsche (auch im Sommer!)</li>
+                                <li><strong>Warm:</strong> Fleece oder dünner Pulli</li>
+                                <li><strong>Kalt:</strong> Warme Mütze, dickere Socken</li>
+                                <li><strong>Zu warm:</strong> Schlafsack nur bis zur Hüfte zu</li>
+                            </ul>
+                        </div>
+                        <div class="hack">🧠 Life-Hack: Warme Wasserflasche 30min vor dem Schlafen in den Schlafsack!</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">🌧️</span>
+                    Wetter & Schutz-Strategien
+                </h2>
+                <div class="tips-grid">
+                    <div class="tip-card weather">
+                        <div class="tip-title">☔ Regenkombi: Mehr als nur eine Jacke</div>
+                        <div class="tip-description">
+                            Eine Regenjacke allein reicht nicht! Wenn die Hose durchweicht ist, ist der ganze Trip im Eimer. Komplette Regenkombi ist Pflicht.
+                        </div>
+                        <div class="tip-details">
+                            <strong>Vollständige Regen-Ausrüstung:</strong>
+                            <ul>
+                                <li><strong>Regenjacke:</strong> Mit Kapuze, atmungsaktiv wenn möglich</li>
+                                <li><strong>Regenhose:</strong> Über normale Hose, mit Seitenzips ideal</li>
+                                <li><strong>Gamaschen:</strong> Schützen Socken vor Nässe von oben</li>
+                                <li><strong>Rucksack-Regenhülle:</strong> Oft vergessen, aber wichtig!</li>
+                            </ul>
+                        </div>
+                        <div class="pro-tip">💡 Poncho als Alternative: Schützt dich UND den Rucksack gleichzeitig</div>
+                    </div>
+
+                    <div class="tip-card weather">
+                        <div class="tip-title">🧥 Zwiebel-Prinzip richtig anwenden</div>
+                        <div class="tip-description">
+                            Nicht einen dicken Pulli, sondern mehrere dünne Schichten. So kannst du flexibel auf Temperatur-Schwankungen reagieren.
+                        </div>
+                        <div class="tip-details">
+                            <strong>Die perfekten 3 Schichten:</strong>
+                            <ul>
+                                <li><strong>Base Layer:</strong> Merino oder Kunstfaser, niemals Baumwolle!</li>
+                                <li><strong>Isolations-Schicht:</strong> Fleece, Softshell oder dünne Daunenjacke</li>
+                                <li><strong>Shell-Schicht:</strong> Wind-/wasserdichte Außenjacke</li>
+                                <li><strong>Bonus:</strong> Dünne Weste für den Rumpf</li>
+                            </ul>
+                        </div>
+                        <div class="warning">⚠️ Baumwolle wird zur Todesfalle wenn nass! Nur Kunstfaser oder Merino.</div>
+                    </div>
+
+                    <div class="tip-card weather">
+                        <div class="tip-title">🧤 Extremitäten warm halten</div>
+                        <div class="tip-description">
+                            Kalte Hände und Füße machen alles zur Qual. Auch im Sommer können die Nächte überraschen kalt werden.
+                        </div>
+                        <div class="tip-details">
+                            <strong>Wärme-Strategie für Hände & Füße:</strong>
+                            <ul>
+                                <li><strong>Fingerhandschuhe:</strong> Für feinmotorische Arbeiten</li>
+                                <li><strong>Fäustlinge drüber:</strong> Wärmer als Fingerhandschuhe</li>
+                                <li><strong>Warme Mütze:</strong> Über den Kopf verlierst du 40% der Wärme</li>
+                                <li><strong>Buff/Schlauchschal:</strong> Multifunktional, wiegt nichts</li>
+                            </ul>
+                        </div>
+                        <div class="hack">🧠 Trick: Handwärmer in die Schuhe - warm vom ersten Schritt an!</div>
+                    </div>
+
+                    <div class="tip-card weather">
+                        <div class="tip-title">🌬️ Wind unterschätzen viele</div>
+                        <div class="tip-description">
+                            Wind macht aus 15°C gefühlt 5°C. Ein Windschutz kann den Unterschied zwischen gemütlich und miserabel machen.
+                        </div>
+                        <div class="tip-details">
+                            <strong>Wind-Schutz Strategien:</strong>
+                            <ul>
+                                <li><strong>Zelt-Platz:</strong> Hinter Bäumen/Felsen, nicht auf Hügeln</li>
+                                <li><strong>Windshell:</strong> Dünne Windjacke, wiegt fast nichts</li>
+                                <li><strong>Tarp spannen:</strong> Als Windschutz beim Kochen</li>
+                                <li><strong>Lagerplatz:</strong> Morgens Sonne, abends windgeschützt</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">🧼</span>
+                    Hygiene & Zelt-Etiquette
+                </h2>
+                <div class="tips-grid">
+                    <div class="tip-card hygiene">
+                        <div class="tip-title">👟 Schuhe-Raus-Politik durchsetzen</div>
+                        <div class="tip-description">
+                            Schuhe bleiben draußen. IMMER. Auch wenn es regnet. Nasse, dreckige Schuhe im Zelt = Game Over für alle Beteiligten.
+                        </div>
+                        <div class="tip-details">
+                            <strong>Schuh-Management:</strong>
+                            <ul>
+                                <li><strong>Unter dem Vorzelt:</strong> Bestmöglicher Schutz</li>
+                                <li><strong>In Müllsäcken:</strong> Wenn kein Vorzelt da ist</li>
+                                <li><strong>Upside-down:</strong> Auf Stöcke stecken, damit kein Wasser reinläuft</li>
+                                <li><strong>Camp-Schuhe:</strong> Crocs oder Sandalen für abends</li>
+                            </ul>
+                        </div>
+                        <div class="pro-tip">💡 Ein Handtuch vor dem Zelt-Eingang = weniger Dreck im Zelt</div>
+                    </div>
+
+                    <div class="tip-card hygiene">
+                        <div class="tip-title">🧻 Feuchttücher sind Gold wert</div>
+                        <div class="tip-description">
+                            Feuchttücher ersetzen die Dusche. Pack mehr ein als du denkst - du wirst sie alle brauchen. Gesicht, Hände, Füße, Intimbereich.
+                        </div>
+                        <div class="tip-details">
+                            <strong>Feuchttuch-Strategie:</strong>
+                            <ul>
+                                <li><strong>Große Packung:</strong> Für Ganzkörper-"Dusche"</li>
+                                <li><strong>Travel-Size:</strong> Für unterwegs und Hände</li>
+                                <li><strong>Baby-Tücher:</strong> Sanfter zur Haut bei empfindlichen Stellen</li>
+                                <li><strong>Antibakterielle:</strong> Für Hände vor dem Essen</li>
+                            </ul>
+                        </div>
+                        <div class="hack">🧠 DIY-Alternative: Seife + Waschlappen + Wasserflasche = mobile Dusche</div>
+                    </div>
+
+                    <div class="tip-card hygiene">
+                        <div class="tip-title">🦷 Mund-Hygiene nicht vernachlässigen</div>
+                        <div class="tip-description">
+                            Nach 2 Tagen ohne Zähneputzen magst du dich selbst nicht mehr. Deine Zelt-Partner auch nicht. Mundspülung ist dein Freund.
+                        </div>
+                        <div class="tip-details">
+                            <strong>Mund-Hygiene Equipment:</strong>
+                            <ul>
+                                <li><strong>Reise-Zahnbürste:</strong> Mit Schutzkappe</li>
+                                <li><strong>Mini-Zahnpasta:</strong> Oder Zahnpasta-Tabs</li>
+                                <li><strong>Mundspülung:</strong> Travel-Size, erfrischt mega</li>
+                                <li><strong>Zahnseide:</strong> Winzig, aber wichtig</li>
+                            </ul>
+                        </div>
+                        <div class="optional-note">🌿 Tipp: Minz-Kaugummi als Backup wenn mal kein Wasser da ist</div>
+                    </div>
+
+                    <div class="tip-card hygiene">
+                        <div class="tip-title">🧴 Körper-Pflege Basics</div>
+                        <div class="tip-description">
+                            Du musst nicht stinken. Ein paar kleine Hygiene-Artikel machen den Unterschied zwischen "Waldschrat" und "noch gesellschaftsfähig".
+                        </div>
+                        <div class="tip-details">
+                            <strong>Hygiene-Kit Zusammenstellen:</strong>
+                            <ul>
+                                <li><strong>Deo:</strong> Roll-on läuft nicht aus wie Spray</li>
+                                <li><strong>Trockenshampoo:</strong> Macht Haare wieder präsentabel</li>
+                                <li><strong>Gesichtscreme:</strong> Sonne und Wind trocknen aus</li>
+                                <li><strong>Lippenbalsam:</strong> Mit UV-Schutz ideal</li>
+                            </ul>
+                        </div>
+                        <div class="pro-tip">💡 Alles in einen durchsichtigen Zip-Beutel - findest du auch im Dunkeln</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">🔦</span>
+                    Licht & Navigation
+                </h2>
+                <div class="tips-grid">
+                    <div class="tip-card gear">
+                        <div class="tip-title">💡 Stirnlampe vs. Taschenlampe</div>
+                        <div class="tip-description">
+                            Stirnlampe macht die Hände frei. Das ist im Zelt, beim Kochen, oder auf dem nächtlichen Klo-Gang unbezahlbar. Hände-frei = Leben einfacher.
+                        </div>
+                        <div class="tip-details">
+                            <strong>Beleuchtungs-Setup:</strong>
+                            <ul>
+                                <li><strong>Haupt-Stirnlampe:</strong> Mit verschiedenen Modi (hell, gedimmt, rot)</li>
+                                <li><strong>Backup-Stirnlampe:</strong> Kleine, leichte für Notfälle</li>
+                                <li><strong>Zelt-Laterne:</strong> Zum Aufhängen, macht aus Zelt ein Wohnzimmer</li>
+                                <li><strong>Handy-Licht:</strong> Als letztes Backup</li>
+                            </ul>
+                        </div>
+                        <div class="pro-tip">💡 Rotlicht-Modus schont die Nachtsicht und nervt andere nicht</div>
+                    </div>
+
+                    <div class="tip-card gear">
+                        <div class="tip-title">🔋 Strom-Management wie ein Profi</div>
+                        <div class="tip-description">
+                            Leere Akkus können gefährlich werden. Pack mehr Ersatz-Batterien ein als du denkst und hab einen Plan für Handy-Akku.
+                        </div>
+                        <div class="tip-details">
+                            <strong>Power-Management:</strong>
+                            <ul>
+                                <li><strong>Powerbank:</strong> Mindestens 10.000mAh für mehrtägige Trips</li>
+                                <li><strong>Ersatz-Batterien:</strong> Für alle Lampen, doppelt so viele wie geplant</li>
+                                <li><strong>Solar-Ladegerät:</strong> Falls möglich - bei längeren Touren Gold wert</li>
+                                <li><strong>Handy sparsam nutzen:</strong> Flugmodus + GPS nur wenn nötig</li>
+                            </ul>
+                        </div>
+                        <div class="hack">🧠 Trick: Handy nachts in den Schlafsack - Kälte killt den Akku</div>
+                    </div>
+
+                    <div class="tip-card gear">
+                        <div class="tip-title">🗺️ Navigation ohne Internet</div>
+                        <div class="tip-description">
+                            Handynetz ist oft weg. GPS funktioniert aber trotzdem. Offline-Karten runterladen BEVOR ihr losfahrt, nicht erst unterwegs.
+                        </div>
+                        <div class="tip-details">
+                            <strong>Navigations-Backup:</strong>
+                            <ul>
+                                <li><strong>Offline-Karten:</strong> Komoot, Maps.me oder OSMAnd</li>
+                                <li><strong>Papier-Karte:</strong> Als absolutes Backup</li>
+                                <li><strong>Kompass:</strong> Kleiner, leichter, braucht keinen Strom</li>
+                                <li><strong>GPS-Koordinaten:</strong> Von wichtigen Punkten notieren</li>
+                            </ul>
+                        </div>
+                        <div class="optional-note">🧭 Falls möglich: Lernt vorher wie man Karte und Kompass benutzt</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">🍽️</span>
+                    Essen & Trinken Strategien
+                </h2>
+                <div class="tips-grid">
+                    <div class="tip-card food">
+                        <div class="tip-title">💧 Wasser: Mehr als du denkst</div>
+                        <div class="tip-description">
+                            3-4 Liter pro Person pro Tag. Nicht 1 Liter. Nicht 2 Liter. DREI bis VIER Liter. Dehydrierung macht aus jedem einen gereizten Zombie.
+                        </div>
+                        <div class="tip-details">
+                            <strong>Wasser-Strategie:</strong>
+                            <ul>
+                                <li><strong>Tagesbedarf:</strong> 1L Trinken + 1L Kochen + 1L Reserve + 1L für heiße Tage</li>
+                                <li><strong>Mehrere Flaschen:</strong> Nicht alles in einem Container</li>
+                                <li><strong>Wasserfiltration:</strong>

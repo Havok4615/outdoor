@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bushcraft Survival Checkliste</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+          body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #2b3a2d;
+      background-image: 
+        repeating-linear-gradient(0deg, #2e3f2e, #2e3f2e 8px, #3a513a 8px, #3a513a 16px),
+        repeating-linear-gradient(90deg, #2e3f2e, #2e3f2e 8px, #3a513a 8px, #3a513a 16px),
+        repeating-linear-gradient(45deg, #324832, #324832 4px, transparent 4px, transparent 8px),
+        repeating-linear-gradient(-45deg, #3c5a3c, #3c5a3c 4px, transparent 4px, transparent 8px);
+      background-size: 32px 32px;
+      background-blend-mode: overlay;
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+    }
+        
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            font-size: 2.5em;
+        }
+        
+        .priority-section {
+            margin-bottom: 30px;
+            background: rgba(0 0 0 / 20%);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgb(0 0 0 / 20%);
+            transition: transform 0.3s ease;
+        }
+        
+        .priority-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .priority-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+        
+        .priority-icon {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+        
+        .critical { color: #d32f2f; }
+        .fire { color: #ff6f00; }
+        .shelter { color: #f57c00; }
+        .water { color: #1976d2; }
+        .food { color: #388e3c; }
+        .tools { color: #7b1fa2; }
+        .skills { color: #c2185b; }
+        .advanced { color: #00796b; }
+        
+        .priority-title {
+            font-size: 1.4em;
+            font-weight: bold;
+        }
+        
+        .toggle-btn {
+            margin-left: auto;
+            background: none;
+            border: none;
+            color: #f5e6d3;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .checklist {
+            list-style: none;
+            transition: max-height 0.3s ease;
+        }
+        
+        .checklist.collapsed {
+            max-height: 0;
+            overflow: hidden;
+        }
+        
+        .checklist li {
+            display: flex;
+            align-items: center;
+            margin: 12px 0;
+            padding: 15px;
+            background: #20652330;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+        
+        .checklist li:hover {
+            background:#42b94730;
+            transform: translateX(8px);
+            border-left-color: #206523;
+        }
+        
+        .checklist input[type="checkbox"] {
+            margin-right: 15px;
+            transform: scale(1.3);
+            cursor: pointer;
+        }
+        
+        .checklist label {
+            cursor: pointer;
+            flex-grow: 1;
+            transition: opacity 0.3s ease;
+        }
+        
+        .checklist li.completed label {
+            opacity: 0.6;
+            text-decoration: line-through;
+        }
+        
+        .description {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-top: 5px;
+            font-style: italic;
+        }
+        
+        .skill-tip {
+            background: #20652330;
+            border-left: 4px solid #206523;
+            padding: 10px 15px;
+            margin: 8px 0;
+            border-radius: 5px;
+            font-size: 0.85em;
+        }
+        
+        .difficulty {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        
+        .easy { background: #4caf50; color: white; }
+        .medium { background: #ff9800; color: white; }
+        .hard { background: #f44336; color: white; }
+        .expert { background: #9c27b0; color: white; }
+        
+        .progress-bar {
+            width: 100%;
+            height: 25px;
+            background:#20652330;
+            border-radius: 12px;
+            margin: 20px 0;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #d32f2f, #ff6f00, #f57c00, #1976d2, #388e3c);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 12px;
+        }
+        
+        .progress-text {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #fff;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+            background: #20652330;
+            border-radius: 12px;
+            margin: 5px;
+            min-width: 130px;
+            backdrop-filter: blur(5px);
+            border: #20652330;
+        }
+        
+        .stat-number {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #fff;
+        }
+        
+        .gear-minimal {
+            background: rgba(46, 125, 50, 0.2);
+            border: 2px solid #2e7d32;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔥 BUSHCRAFT SURVIVAL CHECKLISTE</h1>
+        <div style="text-align: center; margin-bottom: 20px; font-style: italic; opacity: 0.9;">
+            Minimales Gear - Maximale Skills
+        </div>
+        
+        <div class="gear-minimal">
+            <strong>🎒 MINIMAL GEAR:</strong> Nur Zelt, Schlafsachen + Messer/Multitool - der Rest wird selbst gemacht!
+        </div>
+        
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-text" id="progressText">0% Bushcraft Master</div>
+        
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number" id="totalItems">0</div>
+                <div>Skills Total</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="completedItems">0</div>
+                <div>Gemeistert</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="fireCompleted">0</div>
+                <div>Feuer-Skills</div>
+            </div>
+        </div>
+        
+        <!-- KRITISCHE BASIS -->
+        <div class="priority-section">
+            <div class="priority-header" onclick="toggleSection('critical')">
+                <span class="priority-icon critical">🚨</span>
+                <span class="priority-title critical">KRITISCHE BASIS - Überleben sichern</span>
+                <button class="toggle-btn" id="critical-toggle">▼</button>
+            </div>
+            <ul class="checklist" id="critical-list">
+                <li>
+                    <input type="checkbox" id="location-assess" onchange="updateProgress()">
+                    <label for="location-assess">Lagerplatz bewerten & sichern
+                        <div class="description">Gefahren checken: Steinschlag, Hochwasser, Windfall, Tiere</div>
+                        <div class="difficulty easy">EASY</div>
+                    </label>
+                </li>
+                <li>
+                    <input type="checkbox" id="emergency-signals" onchange="updateProgress()">
+                    <label for="emergency-signals">Notsignale vorbereiten
+                        <div class="description">Signalspiegel, Pfeife, Handy-GPS Position notieren</div>
+                        <div class="difficulty easy">EASY</div>
+                    </label>
+                </li>
+                <li>
+                    <input type="checkbox" id="weather-awareness" onchange="updateProgress()">
+                    <label for="weather-awareness">Wetter lesen lernen
+                        <div class="description">Wolkenformationen, Windrichtung, Naturzeichen beobachten</div>
+                        <div class="skill-tip">🌤️ Rote Sonne am Abend = gutes Wetter, Morgens = schlechtes Wetter</div>
+                        <div class="difficulty medium">MEDIUM</div>
+                    </label>
+                </li>
+                <li>
+                    <input type="checkbox" id="first-aid-natural" onchange="updateProgress()">
+                    <label for="first-aid-natural">Natürliche Erste Hilfe
+                        <div class="description">Spitzwegerich für Wunden, Birkenrinde als Verband</div>
+                        <div class="skill-tip">🌿 Spitzwegerich kauen und auf Schnitte/Stiche legen</div>
+                        <div class="difficulty medium">MEDIUM</div>
+                    </label>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- FEUER SKILLS -->
+        <div class="priority-section">
+            <div class="priority-header" onclick="toggleSection('fire')">
+                <span class="priority-icon fire">🔥</span>
+                <span class="priority-title fire">FEUER SKILLS - Das Herzstück</span>
+                <button class="toggle-btn" id="fire-toggle">▼</button>
+            </div>
+            <ul class="checklist" id="fire-list">
+                <li>
+                    <input type="checkbox" id="tinder-collect" onchange="updateProgress()">
+                    <label for="tinder-collect">Zunder sammeln & vorbereiten
+                        <div class="description">Birkenrinde, trockene Gräser, Kiefernharz, Holzspäne</div>
+                        <div class="skill-tip">🔥 Birkenrinde brennt auch nass! Kiefer-Harz als Anzündhilfe</div>
+                        <div class="difficulty easy">EASY</div>
+                    </label>
+                </li>
+                <li>
+                    <input type="checkbox" id="feathersticks" onchange="updateProgress()">
+                    <label for="feathersticks">Feathersticks schnitzen
+                        <div class="description">Dünne Holzspäne am Ast lassen, für bessere Zündung</div>
+                        <div class="skill-tip">🪶 45° Winkel, dünne gleichmäßige Späne, Kernholz freilegen</div>
+                        <div class="difficulty medium">MEDIUM</div>
+                    </label>
+                </li>
+                <li>
+                    <input type="checkbox" id="kindling-prep" onchange="updateProgress()">
+                    <label for="kindling-prep">Anzündholz sortieren
+                        <div class="description">Bleistift- bis Daumendicke, trocken, verschiedene Größen</div>
+                        <div class="skill-tip">🔥 Regel: Zunder → Streichholz → Bleistift → Daumen → Handgelenk</div>
+                        <div class="difficulty easy">EASY</div>
+                    </label>
+                </li>
+                <li>
+                    <input type="checkbox" id="fire-lay-types" onchange="updateProgress()">
+                    <label for="fire-lay-types">Verschiedene Feuerarten bauen
+                        <div class="description">Teepee, Log Cabin, Lean-To, Star Fire</div>
+                        <div class="skill-tip">🏠 Teepee = schnell heiß, Log Cabin = lange Glut, Star = sparsam</div>
+                        <div class="difficulty medium">MEDIUM</div>
+                    </label>
+                </li>
+                <li>
+                    <input type="checkbox" id="fire-bow-drill" onchange="updateProgress()">
+                    <label for="fire-bow-drill">Feuer mit Bow Drill
+                        <div class="description">Primitve Feuererzeugung ohne moderne Hilfsmittel</div>
+                        <div class="skill-tip">🏹 Weiche Holz für Board, harte für Spindle, trockenes Tinder</div>
+                        <div class="difficulty expert">EXPERT</div>
+                    </label>
+                </li>
+                <li>
+                    <input type="checkbox" id="fire-maintenance" onchange="updateProgress()">
+                    <label for="fire-maintenance">Feuer richtig unterhalten
+                        <div class="description">Glut erhalten, Holz nachlegen, sicher löschen</div>
+                        <div class="skill-tip">🔥 Glut unter Asche = hält 12+ Stunden, morgens wieder entfachen</div>
+                        <div class="difficulty medium">MEDIUM</div>
+                    </label>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- UNTERSCHLUPF SKILLS -->
+        <div class="priority-section">
+            <div class="priority-header" onclick="toggleSection('shelter')">
+                <span class="priority-icon shelter">🏠</span>
+                <span class="priority-title shelter">UNTERSCHLUPF SKILLS - Schutz optimieren</span>
+                <button class="toggle-btn" id="shelter-toggle">▼</button>
+            </div>
+            <ul class="checklist" id="shelter-list">
+                <li>
+                    <input type="checkbox" id="ground-insulation" onchange="updateProgress()">
+                    <label for="ground-insulation">Bodenisolierung verbessern
+                        <div class="description">Laub, Tannenäste, Rinde unter/um das Zelt</div>
+                        <div class="skill-tip">🍂 30cm dicke Laubschicht isoliert besser als jede Isomatte</div>
+                        <div class="difficulty easy">EASY</div>
+                    </label>
+                </li>
+                <li>
+                    <input type="checkbox" id="windbreak-build" onchange="updateProgress()">
+                    <label for="windbreak-build">Windschutz bauen
+                        <div class="description">Äste, Steine, Plane als zusätzlicher Schutz</div>
+                        <div class="skill-tip">🌬️ Windschutz auf der Wetterseite, nicht zu nah am Zelt</div>
+                        <div class="difficulty medium">MEDIUM</div>
+                    </label>
+                </li>
+                <li>
+                    <input type="checkbox" id="debris-hut" onchange="updateProgress()">
+                    <label for="debris-hut">Debris Hut als Backup
+                        <div class="description">Notunterkunft aus Ästen und Laub bauen</div>
+                        <div class="skill-tip">🏠 Gerippe aus Ästen, dann 50cm dicke Laubschicht drauf</div>
+                        <div class="difficulty hard">HARD</div>
+                    </label>
+                </li>
+                <li>
+                    <input type="checkbox" id="tarp-configurations" onchange="updateProgress()">
+                    <label for="tarp-configurations">Tarp-Konfigurationen
+                        <div class="description">A-Frame, Lean-To, Pup Tent mit Plane oder Zeltboden</div>
+                        <div class="skill-tip">⛺ Plane 45° gegen Regen, steiler gegen Wind</div>
+                        <div class="difficulty medium">MEDIUM</div>
+                    </label>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- WASSER SKILLS -->
+        <div class="priority-section">
+            <div class="priority-header" onclick="toggleSection('water')">
+                <span class="priority-icon water">💧</span>
+                <span class="priority-title water">WASSER SKILLS - Lebensquelle</span>
+                <button class="toggle-btn" id="water-toggle">▼</button>
+            </div>
+            <ul class="checklist" id="water-list">
+                <li>
+                    <input type="checkbox" id="water-sources" onchange="updateProgress()">
+                    <label for="water-sources">Wasserquellen finden
+                        <div class="description">Bäche folgen, Tierspuren, Morgentau sammeln</div>
+                        <div class="skill-tip">💧 Fließendes Wasser > stehendes, Morgentau mit Tuch sammeln</div>
+                        <div class="difficulty easy">EASY</div>
+                    </label>
+                </li>
+                <li>
+                    <input type="checkbox" id="water-purification" onchange="updateProgress()">
+                    <label for="water-purification">Wasser aufbereiten
+                        <div class="description">Abkochen, primitiv filtern, UV-Licht nutzen</div>
+                        <div class="skill-tip">🔥 10 Min kochen tötet alle Erreger, klare Flasche + Sonne = UV-Desinfektion</div>
+                        <div class="difficulty medium">MEDIUM</div>
+                    </label>
+                </li>
+                <li>
+                    <input type="checkbox" id="primitive-containers" onchange="updateProgress()">
+                    <label for="primitive-containers">Primitive Behälter machen
+                        <div class="description">Birkenrinde, große Blätter, Ton formen</div>
+                        <div class="skill-tip">🌿 Birkenrinde mit Holzstäbchen nähen, wasserdicht mit Harz</div>
+                        <div class="difficulty hard">HARD</div>
+                    </label>
+                </li>
+                <li>
+                    <input type="checkbox" id="water-storage" onchange="updateProgress()">
+                    <label for="water-storage">Wasser lagern & transportieren
+                        <div class="description">Saubere Behälter, vor Sonne schützen, Menge planen</div>
+                        <div class="skill-tip">💧 2L/Tag minimum, mehr bei Hitze/Anstrengung</div>
+                        <div class="difficulty easy">EASY</div>
+                    </label>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- NAHRUNG SKILLS -->
+        <div class="priority-section">
+            <div class="priority-header" onclick="toggleSection('food')">
+                <span class="priority-icon food">🌱</span>
+                <span class="priority-title food">NAHRUNG SKILLS - Wildnis-Küche</span>
+                <button class="toggle-btn" id="food-toggle">▼</button>
+            </div>
+            <ul class="checklist" id="food-list">
+                <li>
+                    <input type="checkbox" id="edible-plants" onchange="updateProgress()">
+                    <label for="edible-plants">Essbare Pflanzen identifizieren
+                        <div class="description">Brennnessel, Löwenzahn, Giersch, Vogelmiere</div>
+                        <div class="skill-tip">🌿 Universal-Essbarkeitstest: Haut → Lippen → Zunge → kauen → schlucken</div>
+                        <div class="difficulty medium">MEDIUM</div>
+                    </label>
+                </li>
+                <li>
+                    <input type="checkbox" id="cooking-methods" onchange="updateProgress()">
+                    <label for="cooking-methods">Primitive Kochmethoden
+                        <div class="description">Grillen am Spieß, in Blättern, heiße Steine, Grube</div>
+                        <div class="skill-tip">🔥 Heiße Steine in Wasser = Suppe kochen ohne Topf</div>
+                        <div class="difficulty medium">MEDIUM</div>
+                    </label>
+                </li>
+                <li>
+                    <input type="checkbox" id="fishing-traps" onchange="updateProgress()">
+                    <label for="fishing-traps">Einfache Fallen/Fischfang
+                        <div class="description">Wurmfalle, primitive Angelhaken, Fischreuse</div>
+                        <div class="skill-tip">🎣 Sicherheitsnadel als Haken, Würmer unter Steinen/Holz</div>
+                        <div class="difficulty hard">HARD</div>
+                    </label>
+                </li>
+                <li>
+                    <input type="checkbox" id="food-preservation" onchange="updateProgress()">
+                    <label for="food-preservation">Nahrung konservieren
+                        <div class="description">Räuchern, trocknen, eingraben (Erdkühlschrank)</div>
+                        <div class="skill-tip">🥩 Räuchern bei 25°C = lange haltbar, Erdkühlschrank 50cm tief</div>
+                        <div class="difficulty hard">HARD</div>
+                    </label>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- WERKZEUG SKILLS -->
+        <div class="priority-section">
+            <div class="priority-header" onclick="toggleSection('tools')">
+                <span class="priority-icon tools">🔧</span>
+                <span class="priority-title tools">WERKZEUG SKILLS - Primitive Technik</span>
+                <button class="toggle-btn" id="tools-toggle">▼</button>
+            </div>
+            <ul class="checklist" id="tools-list">
+                <li>
+                    <input type="checkbox" id="knapping-basics" onchange="updateProgress()">
+                    <label for="knapping-basics">Steinwerkzeuge schlagen
+                        <div class="description">Scharfe Kanten aus Feuerstein, Obsidian, Quarz</div>
+                        <div class="skill-tip">🪨 Schräg schlagen, Leder als Schutz, Kern + Abschläge</div>
+                        <div class="difficulty expert">EXPERT</div>
+                    </label>
+                </li>
+                <li>
+                    <input type="checkbox" id="cordage-making" onchange="updateProgress()">
+                    <label for="cordage-making">Seile aus Pflanzen drehen
+                        <div class="description">Brennnesselstängel, innere Baumrinde, Gras</div>
+                        <div class="skill-tip">🧵 Fasern reiben bis weich, S-Z Drehung für Stabilität</div>
+                        <div class="difficulty hard">HARD</div>
+                    </label>
+                </li>
+                <li>
+                    <input type="checkbox" id="wooden-tools" onchange="updateProgress()">
+                    <label for="wooden-tools">Holzwerkzeuge schnitzen
+                        <div class="description">Speer, Grabstock, Kochlöffel, Schalen</div>
+                        <div class="skill-tip">🪵 Grünes Holz leichter zu schnitzen, hartes Holz für Werkzeuge</div>
+                        <div class="difficulty medium">MEDIUM</div>
+                    </label>
+                </li>
+                <li>
+                    <input type="checkbox" id="containers-bark" onchange="updateProgress()">
+                    <label for="containers-bark">Behälter aus Rinde
+                        <div class="description">Birkenrinde falten, nähen, wasserdicht machen</div>
+                        <div class="skill-tip">🌲 Birkenrinde im Frühjahr am besten, mit Wurzeln nähen</div>
+                        <div class="difficulty hard">HARD</div>
+                    </label>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- ADVANCED SKILLS -->  
+        <div class="priority-section">
+            <div class="priority-header" onclick="toggleSection('advanced')">
+                <span class="priority-icon advanced">🎯</span>
+                <span class="priority-title advanced">ADVANCED SKILLS - Bushcraft Master</span>
+                <button class="toggle-btn" id="advanced-toggle">▼</button>
+            </div>
+            <ul class="checklist" id="advanced-list">
+                <li>
+                    <input type="checkbox" id="weather-prediction" onchange="updateProgress()">
+                    <label for="weather-prediction">Wetter langfristig vorhersagen
+                        <div class="description">Naturzeichen, Tierverhalten, Pflanzensignale lesen</div>
+                        <div class="skill-tip">🌨️ Eicheln dick = harter Winter, Vögel früh weg = Wettersturz</div>
+                        <div class="difficulty expert">EXPERT</div>
+                    </label>
+                </li>
+                <li>
+                    <input type="checkbox" id="navigation-natural" onchange="updateProgress()">
+                    <label for="navigation-natural">Navigation ohne Kompass
+                        <div class="description">Sonne, Sterne, Moos, Baumwuchs als Wegweiser</div>
+                        <div class="skill-tip">⭐ Polarstern = Norden, Stock-Schatten-Methode für Richtung</div>
+                        <div class="difficulty hard">HARD</div>
+                    </label>
+                </li>
+                <li>
+                    <input type="checkbox" id="tracking-basics" onchange="updateProgress()">
+                    <label for="tracking-basics">Spurenlesen lernen
+                        <div class="description">Tierspuren, Fährten, Alter von Spuren bestimmen</div>
+                        <div class="skill-tip">🐾 Frische Spuren = scharfe Kanten, alte = verwischt</div>
+                        <div class="difficulty hard">HARD</div>
+                    </label>
+                </li>
+                <li>
+                    <input type="checkbox" id="advanced-trapping" onchange="updateProgress()">
+                    <label for="advanced-trapping">Erweiterte Fallentechnik
+                        <div class="description">Deadfall, Snare, Paiute Trap, Fish Trap</div>
+                        <div class="skill-tip">🪤 Fallen auf Tierpfaden stellen, getarnt und stabil</div>
+                        <div class="difficulty expert">EXPERT</div>
+                    </label>
+                </li>
+                <li>
+                    <input type="checkbox" id="natural-medicine" onchange="updateProgress()">
+                    <label for="natural-medicine">Pflanzenheilkunde
+                        <div class="description">Heilpflanzen sammeln, zubereiten, anwenden</div>
+                        <div class="skill-tip">🌿 Kamille = Magen, Weidenrinde = Schmerzen, Echinacea = Immunsystem</div>
+                        <div class="difficulty expert">EXPERT</div>
+                    </label>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+      <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
+      const fireCheckboxes = document.querySelectorAll('#fire-list input[type="checkbox"]');
+
+      function updateProgress() {
+        const checked = document.querySelectorAll('input[type="checkbox"]:checked');
+        const fireChecked = document.querySelectorAll('#fire-list input[type="checkbox"]:checked');
+
+        const total = allCheckboxes.length;
+        const complete = checked.length;
+        const fireComplete = fireChecked.length;
+
+        const percent = total ? Math.round((complete / total) * 100) : 0;
+
+        document.getElementById('progressFill').style.width = percent + '%';
+        document.getElementById('progressText').textContent = percent + '% Bushcraft Master';
+        document.getElementById('totalItems').textContent = total;
+        document.getElementById('completedItems').textContent = complete;
+        document.getElementById('fireCompleted').textContent = fireComplete;
+
+        allCheckboxes.forEach(checkbox => {
+          const li = checkbox.closest('li');
+          if (checkbox.checked) {
+            li.classList.add('completed');
+            localStorage.setItem(checkbox.id, '1');
+          } else {
+            li.classList.remove('completed');
+            localStorage.setItem(checkbox.id, '0');
+          }
+        });
+      }
+
+      // Toggle sections
+      const toggles = document.querySelectorAll(".toggle-btn");
+      toggles.forEach(btn => {
+        btn.addEventListener("click", function (e) {
+          const sectionId = btn.id.replace("-toggle", "-list");
+          const list = document.getElementById(sectionId);
+          list.classList.toggle("collapsed");
+          btn.textContent = list.classList.contains("collapsed") ? '▶' : '▼';
+        });
+      });
+
+      // Restore from localStorage
+      allCheckboxes.forEach(cb => {
+        const saved = localStorage.getItem(cb.id);
+        if (saved === '1') cb.checked = true;
+      });
+
+      updateProgress();
+      allCheckboxes.forEach(cb => cb.addEventListener('change', updateProgress));
+    });
+  </script>

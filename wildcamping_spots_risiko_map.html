@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_41d491b8fb5531497d85b6e6bf0b20ba {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_41d491b8fb5531497d85b6e6bf0b20ba" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_41d491b8fb5531497d85b6e6bf0b20ba = L.map(
+                "map_41d491b8fb5531497d85b6e6bf0b20ba",
+                {
+                    center: [45.8, 24.5],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 7,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_c994062f0d156798afaad932696d9cb8 = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_41d491b8fb5531497d85b6e6bf0b20ba);
+        
+    
+            var marker_9bf92d74f8ffaae8f6281a81c5f8c5f9 = L.marker(
+                [45.5817, 24.7574],
+                {}
+            ).addTo(map_41d491b8fb5531497d85b6e6bf0b20ba);
+        
+    
+            var icon_7373f9b163a5a3a5f8ef102a04a34ee5 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_9bf92d74f8ffaae8f6281a81c5f8c5f9.setIcon(icon_7373f9b163a5a3a5f8ef102a04a34ee5);
+        
+    
+        var popup_58edd439a82c50ae1c05aa5b0c665e61 = L.popup({"maxWidth": 300});
+
+        
+            var html_af10a6733d9355badb9145ff9d32990b = $(`<div id="html_af10a6733d9355badb9145ff9d32990b" style="width: 100.0%; height: 100.0%;">     <div style='width: 260px'>         <strong>✅ Valea Rea (Argeș)</strong><br>         Klassischer Spot am Talbeginn, breite Lichtung mit Bach, abgelegen, beliebt aber ruhig.<br>         <a href="https://www.google.com/maps/search/?api=1&query=45.5817,24.7574" target="_blank">📍 Auf Google Maps öffnen</a>     </div>     </div>`)[0];
+            popup_58edd439a82c50ae1c05aa5b0c665e61.setContent(html_af10a6733d9355badb9145ff9d32990b);
+        
+
+        marker_9bf92d74f8ffaae8f6281a81c5f8c5f9.bindPopup(popup_58edd439a82c50ae1c05aa5b0c665e61)
+        ;
+
+        
+    
+    
+            marker_9bf92d74f8ffaae8f6281a81c5f8c5f9.bindTooltip(
+                `<div>
+                     ✅ Valea Rea (Argeș)
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_195fe63aec409360bf84a03d7bc425fc = L.marker(
+                [45.5801, 24.7593],
+                {}
+            ).addTo(map_41d491b8fb5531497d85b6e6bf0b20ba);
+        
+    
+            var icon_0128cc7acbf79a4a207f0fa771e320fe = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_195fe63aec409360bf84a03d7bc425fc.setIcon(icon_0128cc7acbf79a4a207f0fa771e320fe);
+        
+    
+        var popup_460f756c83001c5168e5cfc21c22685e = L.popup({"maxWidth": 300});
+
+        
+            var html_4cdeec2ce90566b4b2e28b105f42d994 = $(`<div id="html_4cdeec2ce90566b4b2e28b105f42d994" style="width: 100.0%; height: 100.0%;">     <div style='width: 260px'>         <strong>✅ Holzlagerstelle bei Nucșoara</strong><br>         Ehemalige Holzlagerfläche, eben und trocken, windgeschützt, nahe am Auto.<br>         <a href="https://www.google.com/maps/search/?api=1&query=45.5801,24.7593" target="_blank">📍 Auf Google Maps öffnen</a>     </div>     </div>`)[0];
+            popup_460f756c83001c5168e5cfc21c22685e.setContent(html_4cdeec2ce90566b4b2e28b105f42d994);
+        
+
+        marker_195fe63aec409360bf84a03d7bc425fc.bindPopup(popup_460f756c83001c5168e5cfc21c22685e)
+        ;
+
+        
+    
+    
+            marker_195fe63aec409360bf84a03d7bc425fc.bindTooltip(
+                `<div>
+                     ✅ Holzlagerstelle bei Nucșoara
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_d0c147e7ecb0bcb5430ef7b255ef5d5d = L.marker(
+                [45.5502, 25.2851],
+                {}
+            ).addTo(map_41d491b8fb5531497d85b6e6bf0b20ba);
+        
+    
+            var icon_8d7d67d9d45bea2a28894489b1106670 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_d0c147e7ecb0bcb5430ef7b255ef5d5d.setIcon(icon_8d7d67d9d45bea2a28894489b1106670);
+        
+    
+        var popup_684ee4d840d7fdb3afb55795dfbe6f6e = L.popup({"maxWidth": 300});
+
+        
+            var html_bed8194e8c35d216c825d3abc57146ef = $(`<div id="html_bed8194e8c35d216c825d3abc57146ef" style="width: 100.0%; height: 100.0%;">     <div style='width: 260px'>         <strong>⚠️ Poiana Zănoaga (Piatra Craiului)</strong><br>         Natürliche Wiese im Wald, schönes Panorama, relativ wenig frequentiert.<br>         <a href="https://www.google.com/maps/search/?api=1&query=45.5502,25.2851" target="_blank">📍 Auf Google Maps öffnen</a>     </div>     </div>`)[0];
+            popup_684ee4d840d7fdb3afb55795dfbe6f6e.setContent(html_bed8194e8c35d216c825d3abc57146ef);
+        
+
+        marker_d0c147e7ecb0bcb5430ef7b255ef5d5d.bindPopup(popup_684ee4d840d7fdb3afb55795dfbe6f6e)
+        ;
+
+        
+    
+    
+            marker_d0c147e7ecb0bcb5430ef7b255ef5d5d.bindTooltip(
+                `<div>
+                     ⚠️ Poiana Zănoaga (Piatra Craiului)
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_6ddfa765f3d69391962a65eb590a165d = L.marker(
+                [45.2583, 25.3301],
+                {}
+            ).addTo(map_41d491b8fb5531497d85b6e6bf0b20ba);
+        
+    
+            var icon_751e51f1e7cb4e1db5426b80ea7849c1 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_6ddfa765f3d69391962a65eb590a165d.setIcon(icon_751e51f1e7cb4e1db5426b80ea7849c1);
+        
+    
+        var popup_6614301825b4d9d9eebbe711fa11d8b5 = L.popup({"maxWidth": 300});
+
+        
+            var html_9b37030dae773b6b0dd3db73329a6ded = $(`<div id="html_9b37030dae773b6b0dd3db73329a6ded" style="width: 100.0%; height: 100.0%;">     <div style='width: 260px'>         <strong>⚠️ Valea Brăteiului (Leaota)</strong><br>         Abgelegene Forststraße mit Lichtung, geschützt vor Wind und Sicht.<br>         <a href="https://www.google.com/maps/search/?api=1&query=45.2583,25.3301" target="_blank">📍 Auf Google Maps öffnen</a>     </div>     </div>`)[0];
+            popup_6614301825b4d9d9eebbe711fa11d8b5.setContent(html_9b37030dae773b6b0dd3db73329a6ded);
+        
+
+        marker_6ddfa765f3d69391962a65eb590a165d.bindPopup(popup_6614301825b4d9d9eebbe711fa11d8b5)
+        ;
+
+        
+    
+    
+            marker_6ddfa765f3d69391962a65eb590a165d.bindTooltip(
+                `<div>
+                     ⚠️ Valea Brăteiului (Leaota)
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_67f90f7f02ecab9a39cac49acd11f2e1 = L.marker(
+                [47.0001, 25.9502],
+                {}
+            ).addTo(map_41d491b8fb5531497d85b6e6bf0b20ba);
+        
+    
+            var icon_7729104def0249725a473fd92e597d89 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_67f90f7f02ecab9a39cac49acd11f2e1.setIcon(icon_7729104def0249725a473fd92e597d89);
+        
+    
+        var popup_9798681fdea4493b4b07364e6ea2b622 = L.popup({"maxWidth": 300});
+
+        
+            var html_8d1afe264eba6acc905e2557dd4f9074 = $(`<div id="html_8d1afe264eba6acc905e2557dd4f9074" style="width: 100.0%; height: 100.0%;">     <div style='width: 260px'>         <strong>⚠️ Poiana Stănile (Ceahlău)</strong><br>         Freie Wiese unterhalb der Ceahlău-Gipfel, ideal für Sonnenaufgang.<br>         <a href="https://www.google.com/maps/search/?api=1&query=47.0001,25.9502" target="_blank">📍 Auf Google Maps öffnen</a>     </div>     </div>`)[0];
+            popup_9798681fdea4493b4b07364e6ea2b622.setContent(html_8d1afe264eba6acc905e2557dd4f9074);
+        
+
+        marker_67f90f7f02ecab9a39cac49acd11f2e1.bindPopup(popup_9798681fdea4493b4b07364e6ea2b622)
+        ;
+
+        
+    
+    
+            marker_67f90f7f02ecab9a39cac49acd11f2e1.bindTooltip(
+                `<div>
+                     ⚠️ Poiana Stănile (Ceahlău)
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_2463d75d814e1776c30fd2de626bcf46 = L.marker(
+                [47.1284, 25.301],
+                {}
+            ).addTo(map_41d491b8fb5531497d85b6e6bf0b20ba);
+        
+    
+            var icon_1d7b4e3071a9fd7cd101dc6fa4f610f7 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_2463d75d814e1776c30fd2de626bcf46.setIcon(icon_1d7b4e3071a9fd7cd101dc6fa4f610f7);
+        
+    
+        var popup_3908c42417d2324234520d390b62600a = L.popup({"maxWidth": 300});
+
+        
+            var html_5fcf009e3071e3dabdcdb8eeb7b824d4 = $(`<div id="html_5fcf009e3071e3dabdcdb8eeb7b824d4" style="width: 100.0%; height: 100.0%;">     <div style='width: 260px'>         <strong>🐻 Padina Șindrilei (Călimani)</strong><br>         Tiefe Waldlichtung, Bachzugang, sehr ruhig und abgelegen.<br>         <a href="https://www.google.com/maps/search/?api=1&query=47.1284,25.3010" target="_blank">📍 Auf Google Maps öffnen</a>     </div>     </div>`)[0];
+            popup_3908c42417d2324234520d390b62600a.setContent(html_5fcf009e3071e3dabdcdb8eeb7b824d4);
+        
+
+        marker_2463d75d814e1776c30fd2de626bcf46.bindPopup(popup_3908c42417d2324234520d390b62600a)
+        ;
+
+        
+    
+    
+            marker_2463d75d814e1776c30fd2de626bcf46.bindTooltip(
+                `<div>
+                     🐻 Padina Șindrilei (Călimani)
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_806347abed8f073942cd6cadb7df1c1a = L.marker(
+                [46.5511, 22.7334],
+                {}
+            ).addTo(map_41d491b8fb5531497d85b6e6bf0b20ba);
+        
+    
+            var icon_f042181c0bcf7ecad11685edbb20b202 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_806347abed8f073942cd6cadb7df1c1a.setIcon(icon_f042181c0bcf7ecad11685edbb20b202);
+        
+    
+        var popup_5a240a0b79b27232a7a4fbcc4fb39089 = L.popup({"maxWidth": 300});
+
+        
+            var html_afc8a06583382078298909926fda8e89 = $(`<div id="html_afc8a06583382078298909926fda8e89" style="width: 100.0%; height: 100.0%;">     <div style='width: 260px'>         <strong>✅ Poiana Florilor (Apuseni)</strong><br>         Blumenwiese abseits der Touristenroute, mit guter Aussicht.<br>         <a href="https://www.google.com/maps/search/?api=1&query=46.5511,22.7334" target="_blank">📍 Auf Google Maps öffnen</a>     </div>     </div>`)[0];
+            popup_5a240a0b79b27232a7a4fbcc4fb39089.setContent(html_afc8a06583382078298909926fda8e89);
+        
+
+        marker_806347abed8f073942cd6cadb7df1c1a.bindPopup(popup_5a240a0b79b27232a7a4fbcc4fb39089)
+        ;
+
+        
+    
+    
+            marker_806347abed8f073942cd6cadb7df1c1a.bindTooltip(
+                `<div>
+                     ✅ Poiana Florilor (Apuseni)
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_230f49848dc43ad0da6210ad42100440 = L.marker(
+                [45.3692, 24.9031],
+                {}
+            ).addTo(map_41d491b8fb5531497d85b6e6bf0b20ba);
+        
+    
+            var icon_d537b38b9759da61e8d6a849142e1548 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_230f49848dc43ad0da6210ad42100440.setIcon(icon_d537b38b9759da61e8d6a849142e1548);
+        
+    
+        var popup_2e03bcd71d4b406d7ec956e3e100d769 = L.popup({"maxWidth": 300});
+
+        
+            var html_02eb0494465068042822382e3feb21c1 = $(`<div id="html_02eb0494465068042822382e3feb21c1" style="width: 100.0%; height: 100.0%;">     <div style='width: 260px'>         <strong>⚠️ Valea Doamnei (Iezer-Păpușa)</strong><br>         Breites Tal mit Wasserzugang, gute Zeltplätze am Rand.<br>         <a href="https://www.google.com/maps/search/?api=1&query=45.3692,24.9031" target="_blank">📍 Auf Google Maps öffnen</a>     </div>     </div>`)[0];
+            popup_2e03bcd71d4b406d7ec956e3e100d769.setContent(html_02eb0494465068042822382e3feb21c1);
+        
+
+        marker_230f49848dc43ad0da6210ad42100440.bindPopup(popup_2e03bcd71d4b406d7ec956e3e100d769)
+        ;
+
+        
+    
+    
+            marker_230f49848dc43ad0da6210ad42100440.bindTooltip(
+                `<div>
+                     ⚠️ Valea Doamnei (Iezer-Păpușa)
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_afa5cba3108b4b2a6d890c5337f83632 = L.marker(
+                [45.3579, 22.8612],
+                {}
+            ).addTo(map_41d491b8fb5531497d85b6e6bf0b20ba);
+        
+    
+            var icon_03e3ef1cc33a266618cde0f29e0a6c45 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_afa5cba3108b4b2a6d890c5337f83632.setIcon(icon_03e3ef1cc33a266618cde0f29e0a6c45);
+        
+    
+        var popup_1b96c85195450b86870f139ad73ef1b9 = L.popup({"maxWidth": 300});
+
+        
+            var html_6df0178deb5ccd2d0de68e044d736756 = $(`<div id="html_6df0178deb5ccd2d0de68e044d736756" style="width: 100.0%; height: 100.0%;">     <div style='width: 260px'>         <strong>✅ Poiana Pelegii (Retezat)</strong><br>         Zentraler Ausgangspunkt für Wanderer, flach und zugänglich.<br>         <a href="https://www.google.com/maps/search/?api=1&query=45.3579,22.8612" target="_blank">📍 Auf Google Maps öffnen</a>     </div>     </div>`)[0];
+            popup_1b96c85195450b86870f139ad73ef1b9.setContent(html_6df0178deb5ccd2d0de68e044d736756);
+        
+
+        marker_afa5cba3108b4b2a6d890c5337f83632.bindPopup(popup_1b96c85195450b86870f139ad73ef1b9)
+        ;
+
+        
+    
+    
+            marker_afa5cba3108b4b2a6d890c5337f83632.bindTooltip(
+                `<div>
+                     ✅ Poiana Pelegii (Retezat)
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_10d1942f72fc69bd290fbf38836a06fa = L.marker(
+                [45.2911, 25.3077],
+                {}
+            ).addTo(map_41d491b8fb5531497d85b6e6bf0b20ba);
+        
+    
+            var icon_290ca4bcc478bb8bee5f7994a75162ef = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_10d1942f72fc69bd290fbf38836a06fa.setIcon(icon_290ca4bcc478bb8bee5f7994a75162ef);
+        
+    
+        var popup_a1d6e359b693b07de05d6246b5eab021 = L.popup({"maxWidth": 300});
+
+        
+            var html_21a414960b92dae7ca4fa7542008083a = $(`<div id="html_21a414960b92dae7ca4fa7542008083a" style="width: 100.0%; height: 100.0%;">     <div style='width: 260px'>         <strong>⚠️ Poiana Văcăriei (Leaota)</strong><br>         Große Waldlichtung, windgeschützt, ideal für Solo-Zelte.<br>         <a href="https://www.google.com/maps/search/?api=1&query=45.2911,25.3077" target="_blank">📍 Auf Google Maps öffnen</a>     </div>     </div>`)[0];
+            popup_a1d6e359b693b07de05d6246b5eab021.setContent(html_21a414960b92dae7ca4fa7542008083a);
+        
+
+        marker_10d1942f72fc69bd290fbf38836a06fa.bindPopup(popup_a1d6e359b693b07de05d6246b5eab021)
+        ;
+
+        
+    
+    
+            marker_10d1942f72fc69bd290fbf38836a06fa.bindTooltip(
+                `<div>
+                     ⚠️ Poiana Văcăriei (Leaota)
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_65a39196a55dce4489359dd762b65608 = L.marker(
+                [45.57, 23.422],
+                {}
+            ).addTo(map_41d491b8fb5531497d85b6e6bf0b20ba);
+        
+    
+            var icon_396a0585752d3f457e036bfc2182ce80 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_65a39196a55dce4489359dd762b65608.setIcon(icon_396a0585752d3f457e036bfc2182ce80);
+        
+    
+        var popup_b0c84217478ae35a20bab68dfcad040a = L.popup({"maxWidth": 300});
+
+        
+            var html_a4c1d51d391df4bba7a70454f68ad08c = $(`<div id="html_a4c1d51d391df4bba7a70454f68ad08c" style="width: 100.0%; height: 100.0%;">     <div style='width: 260px'>         <strong>✅ Lacul Oașa Südseite</strong><br>         Ruhiger Spot am Seeufer, Zufahrt über Forststraße, flaches Ufer.<br>         <a href="https://www.google.com/maps/search/?api=1&query=45.5700,23.4220" target="_blank">📍 Auf Google Maps öffnen</a>     </div>     </div>`)[0];
+            popup_b0c84217478ae35a20bab68dfcad040a.setContent(html_a4c1d51d391df4bba7a70454f68ad08c);
+        
+
+        marker_65a39196a55dce4489359dd762b65608.bindPopup(popup_b0c84217478ae35a20bab68dfcad040a)
+        ;
+
+        
+    
+    
+            marker_65a39196a55dce4489359dd762b65608.bindTooltip(
+                `<div>
+                     ✅ Lacul Oașa Südseite
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_49234b3d4762fe8acf9b3e88c52caa3c = L.marker(
+                [45.6742, 24.4191],
+                {}
+            ).addTo(map_41d491b8fb5531497d85b6e6bf0b20ba);
+        
+    
+            var icon_2e9e4b152d0588fd6cc886ab3e6b37d4 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_49234b3d4762fe8acf9b3e88c52caa3c.setIcon(icon_2e9e4b152d0588fd6cc886ab3e6b37d4);
+        
+    
+        var popup_8993d8d95158ac2b8e1f21b0bf7d23aa = L.popup({"maxWidth": 300});
+
+        
+            var html_b0f3d25dc8ca070ce0a8db10c4dccbf3 = $(`<div id="html_b0f3d25dc8ca070ce0a8db10c4dccbf3" style="width: 100.0%; height: 100.0%;">     <div style='width: 260px'>         <strong>⚠️ Valea Avrigului</strong><br>         Langgezogenes Tal mit vielen Möglichkeiten zum Zelten entlang des Baches.<br>         <a href="https://www.google.com/maps/search/?api=1&query=45.6742,24.4191" target="_blank">📍 Auf Google Maps öffnen</a>     </div>     </div>`)[0];
+            popup_8993d8d95158ac2b8e1f21b0bf7d23aa.setContent(html_b0f3d25dc8ca070ce0a8db10c4dccbf3);
+        
+
+        marker_49234b3d4762fe8acf9b3e88c52caa3c.bindPopup(popup_8993d8d95158ac2b8e1f21b0bf7d23aa)
+        ;
+
+        
+    
+    
+            marker_49234b3d4762fe8acf9b3e88c52caa3c.bindTooltip(
+                `<div>
+                     ⚠️ Valea Avrigului
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_2ec59ed753d26c6204bd3f154daa44ea = L.marker(
+                [46.5322, 23.2609],
+                {}
+            ).addTo(map_41d491b8fb5531497d85b6e6bf0b20ba);
+        
+    
+            var icon_c9ed3e96a5dd4960d00fe1d2924aa742 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_2ec59ed753d26c6204bd3f154daa44ea.setIcon(icon_c9ed3e96a5dd4960d00fe1d2924aa742);
+        
+    
+        var popup_398a5569eb5e60fd0de155800bea5a77 = L.popup({"maxWidth": 300});
+
+        
+            var html_bb1a84262a82d5e770099aeaad452f92 = $(`<div id="html_bb1a84262a82d5e770099aeaad452f92" style="width: 100.0%; height: 100.0%;">     <div style='width: 260px'>         <strong>🐻 Muntele Mare Forststraße</strong><br>         Lange Forststraße mit abgelegenen Lichtungen, selten besucht.<br>         <a href="https://www.google.com/maps/search/?api=1&query=46.5322,23.2609" target="_blank">📍 Auf Google Maps öffnen</a>     </div>     </div>`)[0];
+            popup_398a5569eb5e60fd0de155800bea5a77.setContent(html_bb1a84262a82d5e770099aeaad452f92);
+        
+
+        marker_2ec59ed753d26c6204bd3f154daa44ea.bindPopup(popup_398a5569eb5e60fd0de155800bea5a77)
+        ;
+
+        
+    
+    
+            marker_2ec59ed753d26c6204bd3f154daa44ea.bindTooltip(
+                `<div>
+                     🐻 Muntele Mare Forststraße
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_59ea6126c0180dfbab400b848c3a6409 = L.marker(
+                [46.1795, 23.5172],
+                {}
+            ).addTo(map_41d491b8fb5531497d85b6e6bf0b20ba);
+        
+    
+            var icon_0b323aa0759d9dc9328298cfe9a8d993 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_59ea6126c0180dfbab400b848c3a6409.setIcon(icon_0b323aa0759d9dc9328298cfe9a8d993);
+        
+    
+        var popup_29d8657b2c015522f4f19f6555a098f7 = L.popup({"maxWidth": 300});
+
+        
+            var html_ecc6853d0c8230ae5c8157437fd7f563 = $(`<div id="html_ecc6853d0c8230ae5c8157437fd7f563" style="width: 100.0%; height: 100.0%;">     <div style='width: 260px'>         <strong>✅ Cheile Râmețului Wiese</strong><br>         Fläche am Rand der Schlucht, ruhig und abseits der Touristenroute.<br>         <a href="https://www.google.com/maps/search/?api=1&query=46.1795,23.5172" target="_blank">📍 Auf Google Maps öffnen</a>     </div>     </div>`)[0];
+            popup_29d8657b2c015522f4f19f6555a098f7.setContent(html_ecc6853d0c8230ae5c8157437fd7f563);
+        
+
+        marker_59ea6126c0180dfbab400b848c3a6409.bindPopup(popup_29d8657b2c015522f4f19f6555a098f7)
+        ;
+
+        
+    
+    
+            marker_59ea6126c0180dfbab400b848c3a6409.bindTooltip(
+                `<div>
+                     ✅ Cheile Râmețului Wiese
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_0827802e2df5435c960a68d0773bbf78 = L.marker(
+                [46.5748, 22.729],
+                {}
+            ).addTo(map_41d491b8fb5531497d85b6e6bf0b20ba);
+        
+    
+            var icon_982108ac09f89f6a8d00ed8e0db0b098 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_0827802e2df5435c960a68d0773bbf78.setIcon(icon_982108ac09f89f6a8d00ed8e0db0b098);
+        
+    
+        var popup_cb001d0b9ff25ab4d468be1b896243b3 = L.popup({"maxWidth": 300});
+
+        
+            var html_3149456d84939bac9735eeac20451ff2 = $(`<div id="html_3149456d84939bac9735eeac20451ff2" style="width: 100.0%; height: 100.0%;">     <div style='width: 260px'>         <strong>⚠️ Poiana Glăvoi (abseits)</strong><br>         Hinter dem bekannten Spot, in Richtung Felswände – deutlich ruhiger.<br>         <a href="https://www.google.com/maps/search/?api=1&query=46.5748,22.7290" target="_blank">📍 Auf Google Maps öffnen</a>     </div>     </div>`)[0];
+            popup_cb001d0b9ff25ab4d468be1b896243b3.setContent(html_3149456d84939bac9735eeac20451ff2);
+        
+
+        marker_0827802e2df5435c960a68d0773bbf78.bindPopup(popup_cb001d0b9ff25ab4d468be1b896243b3)
+        ;
+
+        
+    
+    
+            marker_0827802e2df5435c960a68d0773bbf78.bindTooltip(
+                `<div>
+                     ⚠️ Poiana Glăvoi (abseits)
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_3f2e8c99c4a7cb73d9280399ede688cd = L.marker(
+                [46.742, 25.121],
+                {}
+            ).addTo(map_41d491b8fb5531497d85b6e6bf0b20ba);
+        
+    
+            var icon_b33844a4ade83004b43c4a9e2be8c1f7 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_3f2e8c99c4a7cb73d9280399ede688cd.setIcon(icon_b33844a4ade83004b43c4a9e2be8c1f7);
+        
+    
+        var popup_d489f47e7b4ed301fcbc5bd33d788672 = L.popup({"maxWidth": 300});
+
+        
+            var html_e627b7ddb5b8160ccb24cef64cc641c5 = $(`<div id="html_e627b7ddb5b8160ccb24cef64cc641c5" style="width: 100.0%; height: 100.0%;">     <div style='width: 260px'>         <strong>⚠️ Valea Bistra Mureșului</strong><br>         Nebenstraße mit versteckten Ebenen für Zelte, gute Wasserversorgung.<br>         <a href="https://www.google.com/maps/search/?api=1&query=46.7420,25.1210" target="_blank">📍 Auf Google Maps öffnen</a>     </div>     </div>`)[0];
+            popup_d489f47e7b4ed301fcbc5bd33d788672.setContent(html_e627b7ddb5b8160ccb24cef64cc641c5);
+        
+
+        marker_3f2e8c99c4a7cb73d9280399ede688cd.bindPopup(popup_d489f47e7b4ed301fcbc5bd33d788672)
+        ;
+
+        
+    
+    
+            marker_3f2e8c99c4a7cb73d9280399ede688cd.bindTooltip(
+                `<div>
+                     ⚠️ Valea Bistra Mureșului
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_4968fc85c8bdfdefc69340ee4ea4d973 = L.marker(
+                [45.567, 23.933],
+                {}
+            ).addTo(map_41d491b8fb5531497d85b6e6bf0b20ba);
+        
+    
+            var icon_1f06201299c66c7bd9d642bf7cf18907 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_4968fc85c8bdfdefc69340ee4ea4d973.setIcon(icon_1f06201299c66c7bd9d642bf7cf18907);
+        
+    
+        var popup_f7a07427a0e5e0ba84ad14ff6d6842b5 = L.popup({"maxWidth": 300});
+
+        
+            var html_5f27e7b4b751e6be3bc6733bc6cfc96d = $(`<div id="html_5f27e7b4b751e6be3bc6733bc6cfc96d" style="width: 100.0%; height: 100.0%;">     <div style='width: 260px'>         <strong>✅ Valea Sadului</strong><br>         Flussnaher Stellplatz in Hanglage, abgelegen aber gut erreichbar.<br>         <a href="https://www.google.com/maps/search/?api=1&query=45.5670,23.9330" target="_blank">📍 Auf Google Maps öffnen</a>     </div>     </div>`)[0];
+            popup_f7a07427a0e5e0ba84ad14ff6d6842b5.setContent(html_5f27e7b4b751e6be3bc6733bc6cfc96d);
+        
+
+        marker_4968fc85c8bdfdefc69340ee4ea4d973.bindPopup(popup_f7a07427a0e5e0ba84ad14ff6d6842b5)
+        ;
+
+        
+    
+    
+            marker_4968fc85c8bdfdefc69340ee4ea4d973.bindTooltip(
+                `<div>
+                     ✅ Valea Sadului
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_a2a4698a3af30307000f50caa5242832 = L.marker(
+                [45.5265, 23.7084],
+                {}
+            ).addTo(map_41d491b8fb5531497d85b6e6bf0b20ba);
+        
+    
+            var icon_43088ed5621e0811350cdff235d3c46b = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_a2a4698a3af30307000f50caa5242832.setIcon(icon_43088ed5621e0811350cdff235d3c46b);
+        
+    
+        var popup_f57f2aa066a4061c15d51706a60492bb = L.popup({"maxWidth": 300});
+
+        
+            var html_5a201a880824bc583d9baf87135e236e = $(`<div id="html_5a201a880824bc583d9baf87135e236e" style="width: 100.0%; height: 100.0%;">     <div style='width: 260px'>         <strong>⚠️ Lacul Vidra Nebenstraße</strong><br>         Zugang über kleine Straße, mehrere ruhige Buchten vorhanden.<br>         <a href="https://www.google.com/maps/search/?api=1&query=45.5265,23.7084" target="_blank">📍 Auf Google Maps öffnen</a>     </div>     </div>`)[0];
+            popup_f57f2aa066a4061c15d51706a60492bb.setContent(html_5a201a880824bc583d9baf87135e236e);
+        
+
+        marker_a2a4698a3af30307000f50caa5242832.bindPopup(popup_f57f2aa066a4061c15d51706a60492bb)
+        ;
+
+        
+    
+    
+            marker_a2a4698a3af30307000f50caa5242832.bindTooltip(
+                `<div>
+                     ⚠️ Lacul Vidra Nebenstraße
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_4325a347d722677b405334e7bb625c0b = L.marker(
+                [45.4561, 26.0069],
+                {}
+            ).addTo(map_41d491b8fb5531497d85b6e6bf0b20ba);
+        
+    
+            var icon_b1c29b877ace992b7494f77974f29d1e = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_4325a347d722677b405334e7bb625c0b.setIcon(icon_b1c29b877ace992b7494f77974f29d1e);
+        
+    
+        var popup_afef0c3220ea2e7393355cbd7acc24bb = L.popup({"maxWidth": 300});
+
+        
+            var html_f93c04589bf5573e58edab92dd6fe38b = $(`<div id="html_f93c04589bf5573e58edab92dd6fe38b" style="width: 100.0%; height: 100.0%;">     <div style='width: 260px'>         <strong>✅ Poiana din Gura Siriului</strong><br>         Lichtung im Buchenwald, gute Zufahrt, ideal für 1–2 Zelte.<br>         <a href="https://www.google.com/maps/search/?api=1&query=45.4561,26.0069" target="_blank">📍 Auf Google Maps öffnen</a>     </div>     </div>`)[0];
+            popup_afef0c3220ea2e7393355cbd7acc24bb.setContent(html_f93c04589bf5573e58edab92dd6fe38b);
+        
+
+        marker_4325a347d722677b405334e7bb625c0b.bindPopup(popup_afef0c3220ea2e7393355cbd7acc24bb)
+        ;
+
+        
+    
+    
+            marker_4325a347d722677b405334e7bb625c0b.bindTooltip(
+                `<div>
+                     ✅ Poiana din Gura Siriului
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_ae12fcb35dcd59c79ece6be26e583e54 = L.marker(
+                [47.6975, 23.8999],
+                {}
+            ).addTo(map_41d491b8fb5531497d85b6e6bf0b20ba);
+        
+    
+            var icon_3937130b502b64157b8c88b8c33e49b6 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_ae12fcb35dcd59c79ece6be26e583e54.setIcon(icon_3937130b502b64157b8c88b8c33e49b6);
+        
+    
+        var popup_909d823e26e2add2c4db352aac215a31 = L.popup({"maxWidth": 300});
+
+        
+            var html_9d62645b27b23e377da79c1f5770cda9 = $(`<div id="html_9d62645b27b23e377da79c1f5770cda9" style="width: 100.0%; height: 100.0%;">     <div style='width: 260px'>         <strong>⚠️ Drumul forestier Breb</strong><br>         Abgelegene Forststraße im Maramureș, perfekte Ruhezone.<br>         <a href="https://www.google.com/maps/search/?api=1&query=47.6975,23.8999" target="_blank">📍 Auf Google Maps öffnen</a>     </div>     </div>`)[0];
+            popup_909d823e26e2add2c4db352aac215a31.setContent(html_9d62645b27b23e377da79c1f5770cda9);
+        
+
+        marker_ae12fcb35dcd59c79ece6be26e583e54.bindPopup(popup_909d823e26e2add2c4db352aac215a31)
+        ;
+
+        
+    
+    
+            marker_ae12fcb35dcd59c79ece6be26e583e54.bindTooltip(
+                `<div>
+                     ⚠️ Drumul forestier Breb
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_4d2dcf0ba57bca431ec5785f431ea4c4 = L.marker(
+                [47.8701, 24.4211],
+                {}
+            ).addTo(map_41d491b8fb5531497d85b6e6bf0b20ba);
+        
+    
+            var icon_8b52866ff191be95811d80c29b758796 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_4d2dcf0ba57bca431ec5785f431ea4c4.setIcon(icon_8b52866ff191be95811d80c29b758796);
+        
+    
+        var popup_6ce29f58c2c87e4424e13e64012105e6 = L.popup({"maxWidth": 300});
+
+        
+            var html_07019cd8bd443725203d0c30c8564d23 = $(`<div id="html_07019cd8bd443725203d0c30c8564d23" style="width: 100.0%; height: 100.0%;">     <div style='width: 260px'>         <strong>⚠️ Sub Munte (Maramureș)</strong><br>         Waldlichtung mit weiter Sicht, wenig begangen.<br>         <a href="https://www.google.com/maps/search/?api=1&query=47.8701,24.4211" target="_blank">📍 Auf Google Maps öffnen</a>     </div>     </div>`)[0];
+            popup_6ce29f58c2c87e4424e13e64012105e6.setContent(html_07019cd8bd443725203d0c30c8564d23);
+        
+
+        marker_4d2dcf0ba57bca431ec5785f431ea4c4.bindPopup(popup_6ce29f58c2c87e4424e13e64012105e6)
+        ;
+
+        
+    
+    
+            marker_4d2dcf0ba57bca431ec5785f431ea4c4.bindTooltip(
+                `<div>
+                     ⚠️ Sub Munte (Maramureș)
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_35c6e2f00ff1930069c7c75d73d8ecf5 = L.marker(
+                [46.7133, 23.1322],
+                {}
+            ).addTo(map_41d491b8fb5531497d85b6e6bf0b20ba);
+        
+    
+            var icon_e5777ba2a4d6a8fafe505e4c42bf621a = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_35c6e2f00ff1930069c7c75d73d8ecf5.setIcon(icon_e5777ba2a4d6a8fafe505e4c42bf621a);
+        
+    
+        var popup_8ccde2a0ffd682674ba9a87082850411 = L.popup({"maxWidth": 300});
+
+        
+            var html_16a6aba97bb5bd0d237dd635985dbf3c = $(`<div id="html_16a6aba97bb5bd0d237dd635985dbf3c" style="width: 100.0%; height: 100.0%;">     <div style='width: 260px'>         <strong>✅ Izvoarele Someșului Rece</strong><br>         Kalte Quellen, Picknickbereich leicht abseits, sehr naturbelassen.<br>         <a href="https://www.google.com/maps/search/?api=1&query=46.7133,23.1322" target="_blank">📍 Auf Google Maps öffnen</a>     </div>     </div>`)[0];
+            popup_8ccde2a0ffd682674ba9a87082850411.setContent(html_16a6aba97bb5bd0d237dd635985dbf3c);
+        
+
+        marker_35c6e2f00ff1930069c7c75d73d8ecf5.bindPopup(popup_8ccde2a0ffd682674ba9a87082850411)
+        ;
+
+        
+    
+    
+            marker_35c6e2f00ff1930069c7c75d73d8ecf5.bindTooltip(
+                `<div>
+                     ✅ Izvoarele Someșului Rece
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_4d3903b2b91bfd996a7084168cfc4dd9 = L.marker(
+                [45.6635, 24.7448],
+                {}
+            ).addTo(map_41d491b8fb5531497d85b6e6bf0b20ba);
+        
+    
+            var icon_7b9913d18574950bc9eeb2d22ca4f369 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_4d3903b2b91bfd996a7084168cfc4dd9.setIcon(icon_7b9913d18574950bc9eeb2d22ca4f369);
+        
+    
+        var popup_9060d51ba484b29f80f43004ab91bb99 = L.popup({"maxWidth": 300});
+
+        
+            var html_6001a9f4fd25a4278bd26653f9fcea02 = $(`<div id="html_6001a9f4fd25a4278bd26653f9fcea02" style="width: 100.0%; height: 100.0%;">     <div style='width: 260px'>         <strong>✅ Valea Sâmbetei Talbeginn</strong><br>         Breite Wiese vor dem Aufstieg zur Cabana, mit Zufahrt möglich.<br>         <a href="https://www.google.com/maps/search/?api=1&query=45.6635,24.7448" target="_blank">📍 Auf Google Maps öffnen</a>     </div>     </div>`)[0];
+            popup_9060d51ba484b29f80f43004ab91bb99.setContent(html_6001a9f4fd25a4278bd26653f9fcea02);
+        
+
+        marker_4d3903b2b91bfd996a7084168cfc4dd9.bindPopup(popup_9060d51ba484b29f80f43004ab91bb99)
+        ;
+
+        
+    
+    
+            marker_4d3903b2b91bfd996a7084168cfc4dd9.bindTooltip(
+                `<div>
+                     ✅ Valea Sâmbetei Talbeginn
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_17a57d8b72aee60bd7650cdbe699194d = L.marker(
+                [45.4401, 24.5567],
+                {}
+            ).addTo(map_41d491b8fb5531497d85b6e6bf0b20ba);
+        
+    
+            var icon_1d4ec8900ef2c6df3a7978aa84aff8b5 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_17a57d8b72aee60bd7650cdbe699194d.setIcon(icon_1d4ec8900ef2c6df3a7978aa84aff8b5);
+        
+    
+        var popup_4552d9cf428c17f8857ba747da047976 = L.popup({"maxWidth": 300});
+
+        
+            var html_3e74cf3f7efd49e1b974d98ea3edb1c1 = $(`<div id="html_3e74cf3f7efd49e1b974d98ea3edb1c1" style="width: 100.0%; height: 100.0%;">     <div style='width: 260px'>         <strong>🐻 Căldarea Pietroasă</strong><br>         Liegendes Becken mit Bach, rundum Wald – hoher Sichtschutz.<br>         <a href="https://www.google.com/maps/search/?api=1&query=45.4401,24.5567" target="_blank">📍 Auf Google Maps öffnen</a>     </div>     </div>`)[0];
+            popup_4552d9cf428c17f8857ba747da047976.setContent(html_3e74cf3f7efd49e1b974d98ea3edb1c1);
+        
+
+        marker_17a57d8b72aee60bd7650cdbe699194d.bindPopup(popup_4552d9cf428c17f8857ba747da047976)
+        ;
+
+        
+    
+    
+            marker_17a57d8b72aee60bd7650cdbe699194d.bindTooltip(
+                `<div>
+                     🐻 Căldarea Pietroasă
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_0365506e7ee9fbbceffb58d2cfd90a2f = L.marker(
+                [45.6633, 23.4667],
+                {}
+            ).addTo(map_41d491b8fb5531497d85b6e6bf0b20ba);
+        
+    
+            var icon_9c1c624d4eaea873ab92096e2c242cf4 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_0365506e7ee9fbbceffb58d2cfd90a2f.setIcon(icon_9c1c624d4eaea873ab92096e2c242cf4);
+        
+    
+        var popup_d84cfd6dbb012bb2213471b3dbee3fda = L.popup({"maxWidth": 300});
+
+        
+            var html_44ba52e21967cc57bcddc5fffd5d0e4d = $(`<div id="html_44ba52e21967cc57bcddc5fffd5d0e4d" style="width: 100.0%; height: 100.0%;">     <div style='width: 260px'>         <strong>✅ Luncile Prigoanei</strong><br>         Offene Hochfläche mit Forststraße, für größere Gruppen geeignet.<br>         <a href="https://www.google.com/maps/search/?api=1&query=45.6633,23.4667" target="_blank">📍 Auf Google Maps öffnen</a>     </div>     </div>`)[0];
+            popup_d84cfd6dbb012bb2213471b3dbee3fda.setContent(html_44ba52e21967cc57bcddc5fffd5d0e4d);
+        
+
+        marker_0365506e7ee9fbbceffb58d2cfd90a2f.bindPopup(popup_d84cfd6dbb012bb2213471b3dbee3fda)
+        ;
+
+        
+    
+    
+            marker_0365506e7ee9fbbceffb58d2cfd90a2f.bindTooltip(
+                `<div>
+                     ✅ Luncile Prigoanei
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_d5d962fc49a314fbb44f5720217f5f36 = L.marker(
+                [45.3605, 22.8601],
+                {}
+            ).addTo(map_41d491b8fb5531497d85b6e6bf0b20ba);
+        
+    
+            var icon_c35b9d68daa3caad314625490f0500fe = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_d5d962fc49a314fbb44f5720217f5f36.setIcon(icon_c35b9d68daa3caad314625490f0500fe);
+        
+    
+        var popup_bd28bfb0e617196b11654bb3f23d37e9 = L.popup({"maxWidth": 300});
+
+        
+            var html_d5961ec9a293a0ec1e36f525aba896f5 = $(`<div id="html_d5961ec9a293a0ec1e36f525aba896f5" style="width: 100.0%; height: 100.0%;">     <div style='width: 260px'>         <strong>⚠️ Lacul Bucura Zufahrtsweg</strong><br>         Zugang über Schotterstraße, Wiese vor dem Anstieg.<br>         <a href="https://www.google.com/maps/search/?api=1&query=45.3605,22.8601" target="_blank">📍 Auf Google Maps öffnen</a>     </div>     </div>`)[0];
+            popup_bd28bfb0e617196b11654bb3f23d37e9.setContent(html_d5961ec9a293a0ec1e36f525aba896f5);
+        
+
+        marker_d5d962fc49a314fbb44f5720217f5f36.bindPopup(popup_bd28bfb0e617196b11654bb3f23d37e9)
+        ;
+
+        
+    
+    
+            marker_d5d962fc49a314fbb44f5720217f5f36.bindTooltip(
+                `<div>
+                     ⚠️ Lacul Bucura Zufahrtsweg
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_db9003f6bcbcb731dba6832e37a15593 = L.marker(
+                [45.5485, 23.1472],
+                {}
+            ).addTo(map_41d491b8fb5531497d85b6e6bf0b20ba);
+        
+    
+            var icon_740e3c5ac5b333e81c18091a5e833979 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_db9003f6bcbcb731dba6832e37a15593.setIcon(icon_740e3c5ac5b333e81c18091a5e833979);
+        
+    
+        var popup_8d4d03db6855adc81246aeff88561541 = L.popup({"maxWidth": 300});
+
+        
+            var html_10ad9f264c08d0aaf5a7e45e7988bae1 = $(`<div id="html_10ad9f264c08d0aaf5a7e45e7988bae1" style="width: 100.0%; height: 100.0%;">     <div style='width: 260px'>         <strong>⚠️ Fundătura Ponorului (oberer Weg)</strong><br>         Ruhigerer Zugangspunkt oberhalb des berühmten Tals.<br>         <a href="https://www.google.com/maps/search/?api=1&query=45.5485,23.1472" target="_blank">📍 Auf Google Maps öffnen</a>     </div>     </div>`)[0];
+            popup_8d4d03db6855adc81246aeff88561541.setContent(html_10ad9f264c08d0aaf5a7e45e7988bae1);
+        
+
+        marker_db9003f6bcbcb731dba6832e37a15593.bindPopup(popup_8d4d03db6855adc81246aeff88561541)
+        ;
+
+        
+    
+    
+            marker_db9003f6bcbcb731dba6832e37a15593.bindTooltip(
+                `<div>
+                     ⚠️ Fundătura Ponorului (oberer Weg)
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_1f275c546c2676fd31e89bbe1a9e54e7 = L.marker(
+                [45.2762, 24.2305],
+                {}
+            ).addTo(map_41d491b8fb5531497d85b6e6bf0b20ba);
+        
+    
+            var icon_2c52ccb7ea1f341737b03a73e18c04ea = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_1f275c546c2676fd31e89bbe1a9e54e7.setIcon(icon_2c52ccb7ea1f341737b03a73e18c04ea);
+        
+    
+        var popup_92a6613781c2c329d80f64be440c7882 = L.popup({"maxWidth": 300});
+
+        
+            var html_8efd1dd2f407288e48f72ca14ff35926 = $(`<div id="html_8efd1dd2f407288e48f72ca14ff35926" style="width: 100.0%; height: 100.0%;">     <div style='width: 260px'>         <strong>⚠️ Valea Mănăileasa</strong><br>         Breites Waldtal, viel Platz, ideal mit Auto in der Nähe.<br>         <a href="https://www.google.com/maps/search/?api=1&query=45.2762,24.2305" target="_blank">📍 Auf Google Maps öffnen</a>     </div>     </div>`)[0];
+            popup_92a6613781c2c329d80f64be440c7882.setContent(html_8efd1dd2f407288e48f72ca14ff35926);
+        
+
+        marker_1f275c546c2676fd31e89bbe1a9e54e7.bindPopup(popup_92a6613781c2c329d80f64be440c7882)
+        ;
+
+        
+    
+    
+            marker_1f275c546c2676fd31e89bbe1a9e54e7.bindTooltip(
+                `<div>
+                     ⚠️ Valea Mănăileasa
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_58fe327d3ec2518245911911bdb89d58 = L.marker(
+                [46.7522, 22.8198],
+                {}
+            ).addTo(map_41d491b8fb5531497d85b6e6bf0b20ba);
+        
+    
+            var icon_6dbf31c03556d54b9872c76c22808442 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_58fe327d3ec2518245911911bdb89d58.setIcon(icon_6dbf31c03556d54b9872c76c22808442);
+        
+    
+        var popup_60d04faa69aeed1da6d9bde1a7b83845 = L.popup({"maxWidth": 300});
+
+        
+            var html_20a8f9e0191ddbf69326e8e4407f1d40 = $(`<div id="html_20a8f9e0191ddbf69326e8e4407f1d40" style="width: 100.0%; height: 100.0%;">     <div style='width: 260px'>         <strong>⚠️ Poiana Vlădeasa</strong><br>         Abgelegene Wiese auf halber Höhe, Zufahrt möglich.<br>         <a href="https://www.google.com/maps/search/?api=1&query=46.7522,22.8198" target="_blank">📍 Auf Google Maps öffnen</a>     </div>     </div>`)[0];
+            popup_60d04faa69aeed1da6d9bde1a7b83845.setContent(html_20a8f9e0191ddbf69326e8e4407f1d40);
+        
+
+        marker_58fe327d3ec2518245911911bdb89d58.bindPopup(popup_60d04faa69aeed1da6d9bde1a7b83845)
+        ;
+
+        
+    
+    
+            marker_58fe327d3ec2518245911911bdb89d58.bindTooltip(
+                `<div>
+                     ⚠️ Poiana Vlădeasa
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_27f2280b3506e36f44fad88a7fa1b40e = L.marker(
+                [46.5321, 22.9047],
+                {}
+            ).addTo(map_41d491b8fb5531497d85b6e6bf0b20ba);
+        
+    
+            var icon_870e927fee39a2d934a6bf327aa22e44 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_27f2280b3506e36f44fad88a7fa1b40e.setIcon(icon_870e927fee39a2d934a6bf327aa22e44);
+        
+    
+        var popup_e1e9662cbf2e70abb92658e6d760427d = L.popup({"maxWidth": 300});
+
+        
+            var html_6f82204a4d5c2f6b0a0f8f3c1034fa29 = $(`<div id="html_6f82204a4d5c2f6b0a0f8f3c1034fa29" style="width: 100.0%; height: 100.0%;">     <div style='width: 260px'>         <strong>🐻 Bălcești Forststraße</strong><br>         Lichtung entlang der Schotterstraße, selten begangen.<br>         <a href="https://www.google.com/maps/search/?api=1&query=46.5321,22.9047" target="_blank">📍 Auf Google Maps öffnen</a>     </div>     </div>`)[0];
+            popup_e1e9662cbf2e70abb92658e6d760427d.setContent(html_6f82204a4d5c2f6b0a0f8f3c1034fa29);
+        
+
+        marker_27f2280b3506e36f44fad88a7fa1b40e.bindPopup(popup_e1e9662cbf2e70abb92658e6d760427d)
+        ;
+
+        
+    
+    
+            marker_27f2280b3506e36f44fad88a7fa1b40e.bindTooltip(
+                `<div>
+                     🐻 Bălcești Forststraße
+                 </div>`,
+                {"sticky": true}
+            );
+        
+</script>
+</html>

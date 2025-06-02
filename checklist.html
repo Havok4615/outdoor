@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camping Checkliste nach Priorität</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1d976c 0%, #93f9b9 100%);
+            color: #333;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3rem;
+            color: #fff;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        }
+
+        .tier {
+            margin: 40px 0;
+            padding: 20px;
+            border-radius: 20px;
+            background-color: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+        }
+
+        .tier-header {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .task-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .task-list li {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            margin-bottom: 10px;
+            border-left: 8px solid #2ecc71;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .s-tier { border-left-color: #00ff87; }
+        .a-tier { border-left-color: #ffd700; }
+        .b-tier { border-left-color: #ff6b35; }
+        .c-tier { border-left-color: #ff4757; }
+        .d-tier { border-left-color: #8b0000; }
+        .f-tier { border-left-color: #ff006e; }
+    </style>
+</head>
+<body>
+    <h1>🏕️ Camping Checkliste nach Priorität</h1>
+
+    <div class="tier s-tier">
+        <div class="tier-header">S-Tier – Überlebenswichtig</div>
+        <ul class="task-list">
+            <li>Wasser beschaffen oder filtern</li>
+            <li>Feuerholz sammeln und trocken lagern</li>
+            <li>Schlafplatz sicher aufbauen (Zelt, Biwak, Isomatte, Schlafsack)</li>
+            <li>Wettergerechte Kleidung & Regenschutz</li>
+        </ul>
+    </div>
+
+    <div class="tier a-tier">
+        <div class="tier-header">A-Tier – Kritisch für Komfort und Sicherheit</div>
+        <ul class="task-list">
+            <li>Erste-Hilfe-Set griffbereit</li>
+            <li>Navigation sichern (Offline-Karte, Kompass, GPS)</li>
+            <li>Stirnlampe oder Taschenlampe mit Ersatzbatterien</li>
+            <li>Notverpflegung für 24–48h</li>
+        </ul>
+    </div>
+
+    <div class="tier b-tier">
+        <div class="tier-header">B-Tier – Nützlich für Routine & Schutz</div>
+        <ul class="task-list">
+            <li>Kocher oder Grill + Brennstoff</li>
+            <li>Insektenschutz (Spray, Netz, lange Kleidung)</li>
+            <li>Messer oder Multitool</li>
+            <li>Improvisierte Toilette oder Klappspaten</li>
+        </ul>
+    </div>
+
+    <div class="tier c-tier">
+        <div class="tier-header">C-Tier – Komfort-Zone</div>
+        <ul class="task-list">
+            <li>Campingstuhl oder Sitzunterlage</li>
+            <li>Kühlbehälter oder Thermosystem</li>
+            <li>Powerbank oder Solarpanel</li>
+            <li>Feuchttücher, Hygieneartikel</li>
+        </ul>
+    </div>
+
+    <div class="tier d-tier">
+        <div class="tier-header">D-Tier – Optional, je nach Vorlieben</div>
+        <ul class="task-list">
+            <li>Angel oder einfache Jagdausrüstung</li>
+            <li>Unterhaltung: Buch, Musik, Spiele</li>
+            <li>Kamerazubehör oder Drohne</li>
+            <li>Lagerdeko wie Lichterketten</li>
+        </ul>
+    </div>
+
+    <div class="tier f-tier">
+        <div class="tier-header">F-Tier – Ballast vermeiden</div>
+        <ul class="task-list">
+            <li>Zu viele Ersatzklamotten</li>
+            <li>Glasflaschen und zerbrechliches Zeug</li>
+            <li>Unnötige Elektronik oder Küchengeräte</li>
+            <li>Gerümpel „für alle Fälle“, das nie gebraucht wird</li>
+        </ul>
+    </div>
+</body>
+</html>
