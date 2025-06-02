@@ -6,49 +6,49 @@
   <style>
     html, body {
       margin: 0;
-      padding: 0;
       height: 100%;
+      overflow: hidden;
       font-family: sans-serif;
     }
 
     .container {
       display: flex;
       height: 100vh;
-      overflow: hidden;
     }
 
     .sidebar {
       width: 250px;
-      background-color: #111;
+      background-color: #1b1b1b;
+      color: #0f0;
       padding: 20px;
       box-sizing: border-box;
-      color: #0f0;
     }
 
     .sidebar h2 {
       margin-top: 0;
-      font-size: 18px;
-      color: #0f0;
+      margin-bottom: 20px;
+      font-size: 20px;
     }
 
     .sidebar a {
       display: block;
       color: #0f0;
       text-decoration: none;
-      margin: 8px 0;
-      cursor: pointer;
+      margin-bottom: 10px;
     }
 
     .sidebar a:hover {
-      color: #9f9;
+      background-color: #333;
+      padding-left: 5px;
+      transition: 0.2s;
     }
 
     .content {
       flex-grow: 1;
-      background: #222;
+      height: 100%;
     }
 
-    iframe {
+    .content iframe {
       width: 100%;
       height: 100%;
       border: none;
@@ -59,28 +59,22 @@
 
 <div class="container">
   <div class="sidebar">
-    <h2>📒 Menü</h2>
-    <a onclick="loadPage('bushcraft_grillen.html')">Bushcraft Grillen</a>
-    <a onclick="loadPage('camping_tipps.html')">Camping Tipps</a>
-    <a onclick="loadPage('checklist.html')">Checkliste</a>
-    <a onclick="loadPage('feuer.html')">Feuer</a>
-    <a onclick="loadPage('nucosoara_camping_guide%20(1).html')">Nucosoara Guide</a>
-    <a onclick="loadPage('places.html')">Plätze</a>
-    <a onclick="loadPage('survival_checklist%20(1).html')">Survival Checkliste</a>
-    <a onclick="loadPage('waldtier.html')">Waldtiere</a>
-    <a onclick="loadPage('wildcamping_spots_risiko_map.html')">Risiko-Karte</a>
+    <h2>📒 Outdoor Menü</h2>
+    <a href="bushcraft_grillen.html" target="contentFrame">Bushcraft Grillen</a>
+    <a href="camping_tipps.html" target="contentFrame">Camping Tipps</a>
+    <a href="checklist.html" target="contentFrame">Checkliste</a>
+    <a href="feuer.html" target="contentFrame">Feuer</a>
+    <a href="nucosoara_camping_guide%20(1).html" target="contentFrame">Nucosoara Guide</a>
+    <a href="places.html" target="contentFrame">Plätze</a>
+    <a href="survival_checklist%20(1).html" target="contentFrame">Survival Checkliste</a>
+    <a href="waldtier.html" target="contentFrame">Waldtiere</a>
+    <a href="wildcamping_spots_risiko_map.html" target="contentFrame">Risiko-Karte</a>
   </div>
 
   <div class="content">
-    <iframe id="mainFrame" src="bushcraft_grillen.html"></iframe>
+    <iframe name="contentFrame" src="bushcraft_grillen.html"></iframe>
   </div>
 </div>
-
-<script>
-  function loadPage(url) {
-    document.getElementById('mainFrame').src = url;
-  }
-</script>
 
 </body>
 </html>
