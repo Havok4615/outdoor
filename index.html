@@ -1,42 +1,86 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
-    <title>Outdoor Abenteuer | Havok4615</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        /* Optional: Basic styling for frames, though largely controlled by frameset attributes */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
-        }
-        iframe {
-            border: 1px solid #ccc; /* Add a subtle border to the frames */
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Outdoor Menü</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: sans-serif;
+    }
+
+    .container {
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .sidebar {
+      width: 250px;
+      background-color: #111;
+      padding: 20px;
+      box-sizing: border-box;
+      color: #0f0;
+    }
+
+    .sidebar h2 {
+      margin-top: 0;
+      font-size: 18px;
+      color: #0f0;
+    }
+
+    .sidebar a {
+      display: block;
+      color: #0f0;
+      text-decoration: none;
+      margin: 8px 0;
+      cursor: pointer;
+    }
+
+    .sidebar a:hover {
+      color: #9f9;
+    }
+
+    .content {
+      flex-grow: 1;
+      background: #222;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
 </head>
-<frameset cols="25%,*">
-    <frame src="menu.html" name="menuFrame" title="Navigation Menu">
-    <frame src="readme.html" name="contentFrame" title="Main Content">
-    <noframes>
-        <body>
-            <h1>Fehler: Ihr Browser unterstützt keine Frames.</h1>
-            <p>Bitte verwenden Sie einen modernen Browser oder versuchen Sie es mit einem anderen.</p>
-            <ul>
-                <li><a href="bushcraft_grillen.html">Bushcraft Grillen</a></li>
-                <li><a href="camping_tipps.html">Camping Tipps</a></li>
-                <li><a href="checklist.html">Checkliste</a></li>
-                <li><a href="feuer.html">Feuer machen</a></li>
-                <li><a href="index.html">Startseite</a></li>
-                <li><a href="nucosoara_camping_guide (1).html">Nucosoara Camping Guide</a></li>
-                <li><a href="places.html">Orte</a></li>
-                <li><a href="survival_checklist (1).html">Survival Checkliste</a></li>
-                <li><a href="waldtier.html">Waldtier</a></li>
-                <li><a href="wildcamping_spots_risiko_map.html">Wildcamping Risiko Map</a></li>
-            </ul>
-        </body>
-    </noframes>
-</frameset>
+<body>
+
+<div class="container">
+  <div class="sidebar">
+    <h2>📒 Menü</h2>
+    <a onclick="loadPage('bushcraft_grillen.html')">Bushcraft Grillen</a>
+    <a onclick="loadPage('camping_tipps.html')">Camping Tipps</a>
+    <a onclick="loadPage('checklist.html')">Checkliste</a>
+    <a onclick="loadPage('feuer.html')">Feuer</a>
+    <a onclick="loadPage('nucosoara_camping_guide%20(1).html')">Nucosoara Guide</a>
+    <a onclick="loadPage('places.html')">Plätze</a>
+    <a onclick="loadPage('survival_checklist%20(1).html')">Survival Checkliste</a>
+    <a onclick="loadPage('waldtier.html')">Waldtiere</a>
+    <a onclick="loadPage('wildcamping_spots_risiko_map.html')">Risiko-Karte</a>
+  </div>
+
+  <div class="content">
+    <iframe id="mainFrame" src="bushcraft_grillen.html"></iframe>
+  </div>
+</div>
+
+<script>
+  function loadPage(url) {
+    document.getElementById('mainFrame').src = url;
+  }
+</script>
+
+</body>
 </html>
